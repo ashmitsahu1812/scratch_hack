@@ -202,6 +202,16 @@
   box-shadow: 0 0 0 3px rgba(255,107,107,0.2);
 }
 
+/* Fix for Chrome autofill overriding text and background colors */
+.scratch-input:-webkit-autofill,
+.scratch-input:-webkit-autofill:hover, 
+.scratch-input:-webkit-autofill:focus, 
+.scratch-input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #0e121c inset !important;
+    -webkit-text-fill-color: #FFFFFF !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
 /* ─── Tags / Badges ─── */
 .scratch-tag {
   display: inline-flex;

@@ -228,15 +228,15 @@ export default function RegistrationForm() {
           </div>
         </div>
 
-        {/* ── Solo Disclaimer (valid but optional note) ── */}
-        {teamSize === 1 && (
+        {/* ── Solo/Duo Disclaimer (valid but optional note) ── */}
+        {(teamSize === 1 || teamSize === 2) && (
           <div className="mb-6 p-4 rounded-md bg-[#FFE500]/10 border-2 border-[#FFE500]/40 flex items-start gap-3 snap-anim">
             <AlertTriangle className="w-5 h-5 text-[#FFE500] shrink-0 mt-0.5" />
             <div>
-              <div className="font-heading text-lg text-[#FFE500]">Solo Notice</div>
+              <div className="font-heading text-lg text-[#FFE500]">Solo/Duo Notice</div>
               <p className="text-sm text-white/70 font-sans mt-1 leading-relaxed">
-                Solo participation is allowed.
-                If you'd like to find a team, contact <span className="text-[#FFE500]">Newton School of Technology</span> organisers
+                {teamSize === 1 ? 'Solo' : 'Duo'} participation is fully valid and allowed.
+                If you'd like to find {teamSize === 1 ? 'a team' : 'a 3rd member'}, contact <span className="text-[#FFE500]">Newton School of Technology</span> organisers
                 who can try to connect you with other participants looking for a team.
               </p>
             </div>
