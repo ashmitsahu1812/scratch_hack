@@ -70,21 +70,33 @@
 .scratch-block {
   position: relative;
   background: rgba(255, 255, 255, 0.07);
-  border: 2.5px solid rgba(255, 255, 255, 0.22);
-  border-radius: 6px;
   padding: 1.5rem;
+  padding-bottom: calc(1.5rem + 15px); /* extra space for the bottom bump */
+  margin-bottom: 2px;
   transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
   backdrop-filter: blur(12px);
-  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.2);
+  
+  /* Replace border and box-shadow with drop-shadow to support clip-path shape */
+  border: none !important;
+  box-shadow: none !important;
+  filter: drop-shadow(0 0 1.5px rgba(255,255,255,0.4)) drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.25));
+  
+  /* Authentic Scratch Puzzle Shape */
+  clip-path: polygon(
+    0 0,
+    20px 0, 24px 12px, 44px 12px, 48px 0, /* Top Notch */
+    100% 0,
+    100% calc(100% - 15px),
+    48px calc(100% - 15px), 44px 100%, 24px 100%, 20px calc(100% - 15px), /* Bottom Bump */
+    0 calc(100% - 15px)
+  );
 }
 
 .scratch-block::before {
   content: '';
   position: absolute;
   top: 0; left: 0; bottom: 0;
-  width: 5px;
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
+  width: 6px;
   background: var(--accent-green);
 }
 
@@ -97,27 +109,14 @@
 .scratch-block.sound::before    { background: #FF5CE8; }
 
 .scratch-block:hover {
-  transform: translate(-3px, -5px);
+  transform: translate(-2px, -3px);
   background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.4);
-  box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.25);
+  filter: drop-shadow(0 0 1.5px rgba(255,255,255,0.5)) drop-shadow(6px 6px 0 rgba(0, 0, 0, 0.3));
 }
 
-/* Notch connector tab */
-.scratch-notch { position: relative; margin-top: 10px; }
-.scratch-notch::after {
-  content: '';
-  position: absolute;
-  top: -12px; left: 28px;
-  width: 36px; height: 12px;
-  background: rgba(255,255,255,0.07);
-  border-left: 2.5px solid rgba(255,255,255,0.22);
-  border-right: 2.5px solid rgba(255,255,255,0.22);
-  border-bottom: 2.5px solid rgba(255,255,255,0.22);
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
-  backdrop-filter: blur(12px);
-}
+/* Notch connector tab (No longer needed physically, but keeping class for structural negative margins if needed) */
+.scratch-notch { margin-top: -15px !important; z-index: 5; }
+.scratch-notch:hover { z-index: 15; }
 
 /* ─── Neo-Brutalist Buttons ─── */
 .scratch-btn {
