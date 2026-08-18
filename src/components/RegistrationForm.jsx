@@ -135,7 +135,7 @@ export default function RegistrationForm() {
   ) : null;
 
   /* ── Text input (no icon inside) ── */
-  const Field = ({ section, field, type = 'text', placeholder, errorKey, maxLen }) => (
+  const renderField = ({ section, field, type = 'text', placeholder, errorKey, maxLen }) => (
     <div>
       <input
         type={type}
@@ -150,7 +150,7 @@ export default function RegistrationForm() {
   );
 
   /* ── Email field with real-time dup detection ── */
-  const EmailField = ({ section, errorKey, placeholder }) => {
+  const renderEmailField = ({ section, errorKey, placeholder }) => {
     const dupErr = getDuplicateEmail(section, formData[section]?.email || '');
     const valErr = errors[errorKey];
     return (
@@ -277,7 +277,7 @@ export default function RegistrationForm() {
               <span className="scratch-tag scratch-tag-events">Step 1</span>
             </div>
             <label className={label}>Team Name <span className="text-[#FF6B6B]">*</span></label>
-            <Field section="teamName" field="teamName" placeholder="e.g. Pixel Pioneers, Sprite Masters…" errorKey="teamName" />
+            {renderField({ section: "teamName", field: "teamName", placeholder: "e.g. Pixel Pioneers, Sprite Masters…", errorKey: "teamName" })}
           </div>
 
           {/* BLOCK 2 — Leader */}
@@ -292,19 +292,19 @@ export default function RegistrationForm() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <label className={label}>Full Name <span className="text-[#FF6B6B]">*</span></label>
-                <Field section="leader" field="fullName" placeholder="Ada Lovelace" errorKey="leaderFullName" />
+                {renderField({ section: "leader", field: "fullName", placeholder: "Ada Lovelace", errorKey: "leaderFullName" })}
               </div>
               <div>
                 <label className={label}>Email Address <span className="text-[#FF6B6B]">*</span></label>
-                <EmailField section="leader" errorKey="leaderEmail" placeholder="ada@nst.edu.in" />
+                {renderEmailField({ section: "leader", errorKey: "leaderEmail", placeholder: "ada@nst.edu.in" })}
               </div>
               <div>
-                <label className={label}>Batch Name <span className="text-[#FF6B6B]">*</span></label>
-                <Field section="leader" field="batch" placeholder="e.g. CSE 2026, B.Tech AI Batch 3" errorKey="leaderBatch" />
+                <label className={label}>Batch <span className="text-[#FF6B6B]">*</span></label>
+                {renderField({ section: "leader", field: "batch", placeholder: "e.g. 2024-2028", errorKey: "leaderBatch" })}
               </div>
               <div>
-                <label className={label}>Mobile Number (10 Digits) <span className="text-[#FF6B6B]">*</span></label>
-                <Field section="leader" field="phone" type="tel" maxLen={10} placeholder="9876543210" errorKey="leaderPhone" />
+                <label className={label}>Mobile Number <span className="text-[#FF6B6B]">*</span></label>
+                {renderField({ section: "leader", field: "phone", type: "tel", maxLen: 10, placeholder: "10-digit number", errorKey: "leaderPhone" })}
               </div>
             </div>
           </div>
@@ -319,18 +319,18 @@ export default function RegistrationForm() {
                 </div>
                 <span className="scratch-tag scratch-tag-looks">Team Member</span>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className={label}>Full Name <span className="text-[#FF6B6B]">*</span></label>
-                  <Field section="member2" field="fullName" placeholder="Alan Turing" errorKey="member2FullName" />
+                  {renderField({ section: "member2", field: "fullName", placeholder: "Alan Turing", errorKey: "member2FullName" })}
                 </div>
                 <div>
                   <label className={label}>Email Address <span className="text-[#FF6B6B]">*</span></label>
-                  <EmailField section="member2" errorKey="member2Email" placeholder="alan@nst.edu.in" />
+                  {renderEmailField({ section: "member2", errorKey: "member2Email", placeholder: "alan@nst.edu.in" })}
                 </div>
-                <div>
-                  <label className={label}>Batch Name <span className="text-[#FF6B6B]">*</span></label>
-                  <Field section="member2" field="batch" placeholder="e.g. ECE 2026" errorKey="member2Batch" />
+                <div className="sm:col-span-2">
+                  <label className={label}>Batch <span className="text-[#FF6B6B]">*</span></label>
+                  {renderField({ section: "member2", field: "batch", placeholder: "e.g. 2024-2028", errorKey: "member2Batch" })}
                 </div>
               </div>
             </div>
@@ -346,18 +346,18 @@ export default function RegistrationForm() {
                 </div>
                 <span className="scratch-tag scratch-tag-sensing">Team Member</span>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className={label}>Full Name <span className="text-[#FF6B6B]">*</span></label>
-                  <Field section="member3" field="fullName" placeholder="Grace Hopper" errorKey="member3FullName" />
+                  {renderField({ section: "member3", field: "fullName", placeholder: "Grace Hopper", errorKey: "member3FullName" })}
                 </div>
                 <div>
                   <label className={label}>Email Address <span className="text-[#FF6B6B]">*</span></label>
-                  <EmailField section="member3" errorKey="member3Email" placeholder="grace@nst.edu.in" />
+                  {renderEmailField({ section: "member3", errorKey: "member3Email", placeholder: "grace@nst.edu.in" })}
                 </div>
-                <div>
-                  <label className={label}>Batch Name <span className="text-[#FF6B6B]">*</span></label>
-                  <Field section="member3" field="batch" placeholder="e.g. CSAI 2027" errorKey="member3Batch" />
+                <div className="sm:col-span-2">
+                  <label className={label}>Batch <span className="text-[#FF6B6B]">*</span></label>
+                  {renderField({ section: "member3", field: "batch", placeholder: "e.g. 2024-2028", errorKey: "member3Batch" })}
                 </div>
               </div>
             </div>
