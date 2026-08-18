@@ -10,6 +10,7 @@ import RegistrationBadgeModal from './RegistrationBadgeModal';
 
 /* ─── Team size config ─── */
 const TEAM_SIZES = [
+  { size: 1, label: 'Solo',  icon: UserRound,   desc: '1 member',  color: '#FFE500' },
   { size: 2, label: 'Duo',   icon: Users,       desc: '2 members', color: '#FF5CE8' },
   { size: 3, label: 'Trio',  icon: UsersRound,  desc: '3 members', color: '#00FFB3' },
 ];
@@ -227,15 +228,15 @@ export default function RegistrationForm() {
           </div>
         </div>
 
-        {/* ── Duo Disclaimer (valid but optional note) ── */}
-        {teamSize === 2 && (
+        {/* ── Solo Disclaimer (valid but optional note) ── */}
+        {teamSize === 1 && (
           <div className="mb-6 p-4 rounded-md bg-[#FFE500]/10 border-2 border-[#FFE500]/40 flex items-start gap-3 snap-anim">
             <AlertTriangle className="w-5 h-5 text-[#FFE500] shrink-0 mt-0.5" />
             <div>
-              <div className="font-heading text-lg text-[#FFE500]">Duo Team Notice</div>
+              <div className="font-heading text-lg text-[#FFE500]">Solo Notice</div>
               <p className="text-sm text-white/70 font-sans mt-1 leading-relaxed">
-                Duo teams are <strong className="text-white">fully valid</strong> — the minimum team size is 2 members.
-                If you'd like a 3rd member, contact <span className="text-[#FFE500]">Newton School of Technology</span> organisers
+                Solo participation is allowed.
+                If you'd like to find a team, contact <span className="text-[#FFE500]">Newton School of Technology</span> organisers
                 who can try to connect you with other participants looking for a team.
               </p>
             </div>
