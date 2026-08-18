@@ -98,7 +98,7 @@ export const registerTeam = async (formData) => {
       return {
         success: true,
         source: 'supabase',
-        teamId: insertedMembers[0].id,
+        teamId: insertedMembers?.[0]?.id || 'unknown',
         teamName: normalizedTeamName,
         teamSize,
         registrationType,
@@ -106,56 +106,12 @@ export const registerTeam = async (formData) => {
         registeredAt: new Date().toISOString()
       };
     } catch (err) {
-      if (err.message.includes('already') || err.message.includes('Duplicate')) throw err;
-      console.warn('Supabase registration failed, falling back to Local Demo Database:', err);
+      console.error('Supabase registration failed:', err);
+      throw err;
     }
   }
 
-  // ── Local Storage Fallback ──
-  const localRegistrations = JSON.parse(localStorage.getItem('scratch_hack_registrations') || '[]');
-
-  const teamExists = localRegistrations.some(r => r.teamName.toLowerCase() === normalizedTeamName.toLowerCase());
-  if (teamExists) throw new Error(`Team name "${normalizedTeamName}" is already registered in local storage.`);
-
-  for (const reg of localRegistrations) {
-    for (const existingMem of reg.members) {
-      if (emails.includes(existingMem.email.toLowerCase())) {
-        throw new Error(`Email "${existingMem.email}" is already registered in another team.`);
-      }
-    }
-  }
-
-  const generatedTeamId = 'scratch-' + crypto.randomUUID();
-  const registrationRecord = {
-    teamId: generatedTeamId,
-    teamName: normalizedTeamName,
-    teamSize,
-    registrationType,
-    source: 'local_demo',
-    registeredAt: new Date().toISOString(),
-    members: membersList.map((m, idx) => ({
-      id: `mem-${idx + 1}-` + Math.random().toString(36).substring(2, 7),
-      fullName: m.fullName.trim(),
-      email: m.email.toLowerCase().trim(),
-      batch: m.batch.trim(),
-      phone: m.phone ? m.phone.trim() : null,
-      role: m.role
-    }))
-  };
-
-  localRegistrations.push(registrationRecord);
-  localStorage.setItem('scratch_hack_registrations', JSON.stringify(localRegistrations));
-
-  return {
-    success: true,
-    source: 'local_demo',
-    teamId: registrationRecord.teamId,
-    teamName: registrationRecord.teamName,
-    teamSize,
-    registrationType,
-    members: registrationRecord.members,
-    registeredAt: registrationRecord.registeredAt
-  };
+  throw new Error('Supabase is not configured.');
 };
 
 export const getLocalRegistrationsCount = () => {
