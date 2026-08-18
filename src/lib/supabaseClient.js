@@ -63,9 +63,10 @@ export const registerTeam = async (formData) => {
     try {
       // Check team name uniqueness
       const { data: existingTeam, error: teamCheckErr } = await supabase
-        .from('teams')
-        .select('id')
+        .from('team_registrations')
+        .select('team_name')
         .ilike('team_name', normalizedTeamName)
+        .limit(1)
         .maybeSingle();
 
       if (teamCheckErr && teamCheckErr.code !== 'PGRST116') {
@@ -74,37 +75,20 @@ export const registerTeam = async (formData) => {
         throw new Error(`Team name "${normalizedTeamName}" is already taken. Please choose another name.`);
       }
 
-      // Insert Team
-      const { data: teamData, error: teamErr } = await supabase
-        .from('teams')
-        .insert([{ team_name: normalizedTeamName }])
-        .select()
-        .single();
-
-      if (teamErr) {
-        if (teamErr.code === '23505') throw new Error(`Team name "${normalizedTeamName}" is already registered.`);
-        throw new Error(teamErr.message || 'Failed to create team record in Supabase');
-      }
-
-      const teamId = teamData.id;
-
-      // Insert Members
+      // Insert Members into single table
       const membersToInsert = membersList.map(m => ({
-        team_id: teamId,
+        team_name: normalizedTeamName,
         full_name: m.fullName.trim(),
         email: m.email.toLowerCase().trim(),
-        batch: m.batch.trim(),
-        phone: m.phone ? m.phone.trim() : null,
-        role: m.role
+        batch: m.batch.trim()
       }));
 
       const { data: insertedMembers, error: membersErr } = await supabase
-        .from('team_members')
+        .from('team_registrations')
         .insert(membersToInsert)
         .select();
 
       if (membersErr) {
-        await supabase.from('teams').delete().eq('id', teamId);
         if (membersErr.code === '23505') {
           throw new Error('One of the member email addresses is already registered in another team!');
         }
@@ -114,12 +98,12 @@ export const registerTeam = async (formData) => {
       return {
         success: true,
         source: 'supabase',
-        teamId: teamData.id,
-        teamName: teamData.team_name,
+        teamId: insertedMembers[0].id,
+        teamName: normalizedTeamName,
         teamSize,
         registrationType,
         members: insertedMembers,
-        registeredAt: teamData.created_at
+        registeredAt: new Date().toISOString()
       };
     } catch (err) {
       if (err.message.includes('already') || err.message.includes('Duplicate')) throw err;
