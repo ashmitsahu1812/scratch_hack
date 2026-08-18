@@ -250,6 +250,19 @@
 .geo-float-alt  { animation: floatDown 5s ease-in-out infinite; }
 .geo-float-slow { animation: floatSlow 6.5s ease-in-out infinite; }
 
+/* ─── Background Decoration Blocks ─── */
+.bg-block {
+  position: absolute;
+  opacity: 0.05;
+  border-radius: 4px;
+  pointer-events: none;
+  z-index: 0;
+}
+.bg-block-1 { width: 120px; height: 80px; background: #00FFB3; top: 15%; left: 5%; transform: rotate(-15deg); }
+.bg-block-2 { width: 80px; height: 120px; background: #FF5CE8; top: 60%; right: 8%; transform: rotate(20deg); }
+.bg-block-3 { width: 150px; height: 60px; background: #FFE500; bottom: 10%; left: 10%; transform: rotate(5deg); }
+.bg-block-4 { width: 60px; height: 60px; background: #FF6B6B; top: 30%; right: 15%; transform: rotate(-10deg); }
+
 /* ─── Modal ─── */
 .modal-overlay {
   position: fixed;

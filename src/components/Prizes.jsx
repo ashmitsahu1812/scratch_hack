@@ -1,5 +1,6 @@
 import React from 'react';
 import { Trophy, Medal, Crown, Sparkles, Award, CheckCircle2 } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { scratchAudio } from '../lib/soundEffects';
 
 const prizeTiers = [
@@ -36,7 +37,13 @@ const prizeTiers = [
 export default function Prizes() {
   return (
     <section id="prizes" className="py-20 relative bg-[#1A1DCC]/40 border-t-2 border-b-2 border-white/10">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.div 
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.6 }}
+        className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
 
         <div className="text-center max-w-3xl mx-auto mb-14">
           <span className="scratch-tag scratch-tag-operators mb-3">reward block variable</span>
@@ -50,8 +57,12 @@ export default function Prizes() {
           {prizeTiers.map((tier, idx) => {
             const Icon = tier.icon;
             return (
-              <div
+              <motion.div
                 key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
                 onClick={() => scratchAudio.playSnap()}
                 className="scratch-block scratch-notch hover:scale-[1.03] cursor-pointer flex flex-col justify-between"
                 style={{
@@ -89,14 +100,20 @@ export default function Prizes() {
                     set [prize_pool] to ({tier.prize})
                   </span>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
 
         {/* Certificate Banner */}
-        <div className="mt-12 scratch-block operators scratch-notch p-6 flex flex-col sm:flex-row items-center justify-between gap-4"
-          style={{ borderColor: '#00FFB3', boxShadow: '5px 5px 0 rgba(0,255,179,0.2)' }}>
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="mt-12 scratch-block operators scratch-notch p-6 flex flex-col sm:flex-row items-center justify-between gap-4"
+          style={{ borderColor: '#00FFB3', boxShadow: '5px 5px 0 rgba(0,255,179,0.2)' }}
+        >
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-md bg-[#00FFB3]/20 flex items-center justify-center text-[#00FFB3] border border-[#00FFB3]/40 shrink-0">
               <Award className="w-7 h-7" />
@@ -109,9 +126,9 @@ export default function Prizes() {
             </div>
           </div>
           <span className="scratch-tag scratch-tag-motion shrink-0">100% Certificate Guarantee</span>
-        </div>
+        </motion.div>
 
-      </div>
+      </motion.div>
     </section>
   );
 }

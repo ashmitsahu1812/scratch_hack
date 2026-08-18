@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronDown, ChevronUp, Mail } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { scratchAudio } from '../lib/soundEffects';
 
 const faqs = [
@@ -55,7 +56,13 @@ export default function Faq() {
 
   return (
     <section id="faq" className="py-20 relative">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.div 
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.6 }}
+        className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
 
         <div className="text-center mb-14">
           <span className="scratch-tag scratch-tag-sensing mb-3">sensing &amp; control queries</span>
@@ -102,7 +109,13 @@ export default function Faq() {
           })}
         </div>
 
-        <div className="mt-12 text-center p-6 rounded-md bg-white/5 border border-white/15 space-y-3 backdrop-blur-sm">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="mt-12 text-center p-6 rounded-md bg-white/5 border border-white/15 space-y-3 backdrop-blur-sm"
+        >
           <div className="font-heading text-2xl text-white">Still have questions?</div>
           <p className="text-sm text-white/50 font-sans">Contact the Newton School of Technology hackathon organising team.</p>
           <div className="flex items-center justify-center gap-4 text-xs font-code text-[#00FFB3]">
@@ -110,9 +123,9 @@ export default function Faq() {
               <Mail className="w-3.5 h-3.5" /> support@scratchhack2026.org
             </a>
           </div>
-        </div>
+        </motion.div>
 
-      </div>
+      </motion.div>
     </section>
   );
 }

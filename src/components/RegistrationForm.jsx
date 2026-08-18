@@ -3,6 +3,7 @@ import {
   Users, Sparkles, AlertCircle, Loader2,
   UserRound, UsersRound, AlertTriangle
 } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { registerTeam } from '../lib/supabaseClient';
 import { scratchAudio } from '../lib/soundEffects';
 import RegistrationBadgeModal from './RegistrationBadgeModal';
@@ -169,9 +170,17 @@ export default function RegistrationForm() {
   };
 
   return (
-    <section id="register" className="py-20 relative">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="register" className="py-20 relative bg-[#0B0F17] overflow-hidden">
+      <div className="absolute top-10 left-10 w-24 h-24 bg-[#FF5CE8]/10 rounded-md rotate-12 blur-xl pointer-events-none"></div>
+      <div className="absolute bottom-20 right-10 w-32 h-32 bg-[#00FFB3]/10 rounded-md -rotate-12 blur-2xl pointer-events-none"></div>
 
+      <motion.div 
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.6 }}
+        className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
+      >
         {/* Header */}
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-3 bg-[#A78BFF]/20 text-[#A78BFF] border border-[#A78BFF]/40 rounded-sm font-sans text-sm font-semibold uppercase tracking-wider">
@@ -249,7 +258,13 @@ export default function RegistrationForm() {
         )}
 
         {/* ── Form ── */}
-        <form onSubmit={handleSubmit} className={`space-y-8 ${isSnapping ? 'snap-anim' : ''}`}>
+        <motion.form 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
+          onSubmit={handleSubmit} 
+          className={`space-y-8 ${isSnapping ? 'snap-anim' : ''}`}
+        >
 
           {/* BLOCK 1 — Team Name */}
           <div className="scratch-block events scratch-notch">
@@ -363,7 +378,7 @@ export default function RegistrationForm() {
             </div>
           </div>
 
-        </form>
+        </motion.form>
 
         {confirmedRegistration && (
           <RegistrationBadgeModal
@@ -371,8 +386,7 @@ export default function RegistrationForm() {
             onClose={() => setConfirmedRegistration(null)}
           />
         )}
-
-      </div>
+      </motion.div>
     </section>
   );
 }

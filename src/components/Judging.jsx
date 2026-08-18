@@ -1,5 +1,6 @@
 import React from 'react';
 import { Star, MessageSquare, Cpu, Users, Calculator } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { scratchAudio } from '../lib/soundEffects';
 
 const round1Rubric = [
@@ -26,7 +27,13 @@ const tieBreakers = [
 export default function Judging() {
   return (
     <section id="judging" className="py-20 relative bg-[#1A1DCC]/40 border-t-2 border-b-2 border-white/10">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.div 
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.6 }}
+        className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
 
         {/* Title */}
         <div className="text-center max-w-3xl mx-auto mb-14">
@@ -145,7 +152,7 @@ export default function Judging() {
           </ol>
         </div>
 
-      </div>
+      </motion.div>
     </section>
   );
 }

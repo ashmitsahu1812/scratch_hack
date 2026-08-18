@@ -1,5 +1,6 @@
 import React from 'react';
 import { Flag, Clock, Radio, CheckCircle, Trophy, Code, FileText } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { scratchAudio } from '../lib/soundEffects';
 
 const scheduleSteps = [
@@ -64,7 +65,13 @@ const scheduleSteps = [
 export default function Timeline() {
   return (
     <section id="schedule" className="py-20 relative">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <motion.div 
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.6 }}
+        className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
 
         <div className="text-center mb-14">
           <span className="scratch-tag scratch-tag-control mb-3">script execution flow</span>
@@ -78,7 +85,11 @@ export default function Timeline() {
           {scheduleSteps.map((step, idx) => {
             const Icon = step.icon;
             return (
-              <div
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
                 key={idx}
                 onClick={() => scratchAudio.playSnap()}
                 className={`scratch-block ${step.blockType} scratch-notch cursor-pointer transition-transform`}
@@ -104,12 +115,12 @@ export default function Timeline() {
                   </div>
                 </div>
                 <p className="text-white/60 text-xs sm:text-sm mt-3 pt-2 border-t border-white/10 font-sans">{step.desc}</p>
-              </div>
+              </motion.div>
             );
           })}
         </div>
 
-      </div>
+      </motion.div>
     </section>
   );
 }

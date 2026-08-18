@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Gamepad2, BookOpen, Film, Bot, Swords, ShieldCheck, Leaf, ArrowUpRight, Lock, Users } from 'lucide-react';
 import { scratchAudio } from '../lib/soundEffects';
 
@@ -26,7 +27,14 @@ export default function Tracks() {
 
   return (
     <section id="tracks" className="py-20 relative bg-[#1A1DCC]/40 border-t-2 border-b-2 border-white/10">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="bg-block bg-block-3 geo-float"></div>
+      <motion.div 
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
+        transition={{ duration: 0.6 }}
+        className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"
+      >
 
         {/* Title */}
         <div className="text-center max-w-3xl mx-auto mb-14">
@@ -70,7 +78,13 @@ export default function Tracks() {
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-heading text-2xl text-white/60 uppercase tracking-widest">Example Statements <span className="text-sm text-white/30 font-sans normal-case tracking-normal">(illustrative only — actual statements released on event day)</span></h3>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-6"
+        >
             {visible.map((ps) => {
               const Icon = ps.icon;
               return (
@@ -100,7 +114,7 @@ export default function Tracks() {
                 </div>
               );
             })}
-          </div>
+          </motion.div>
 
           <div className="text-center mt-6">
             <button
@@ -112,7 +126,7 @@ export default function Tracks() {
           </div>
         </div>
 
-      </div>
+      </motion.div>
     </section>
   );
 }

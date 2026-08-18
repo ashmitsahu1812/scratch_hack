@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Flag, Play, Sparkles, Trophy, Users, Clock, Zap } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { scratchAudio } from '../lib/soundEffects';
 
 /* ── Floating 3D Geometric Shapes ── */
@@ -92,7 +93,17 @@ export default function Hero() {
         className="absolute top-1/3 right-6 w-10 h-10 geo-float-slow pointer-events-none hidden xl:block"
       />
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      {/* Decorative Blocks */}
+      <div className="bg-block bg-block-1 geo-float"></div>
+      <div className="bg-block bg-block-2 geo-float-alt"></div>
+      <div className="bg-block bg-block-4 geo-float-slow"></div>
+
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+        className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
+      >
 
         {/* Announce badge */}
         <div className="flex justify-center mb-8">
@@ -192,7 +203,7 @@ export default function Hero() {
           ))}
         </div>
 
-      </div>
+      </motion.div>
     </section>
   );
 }
