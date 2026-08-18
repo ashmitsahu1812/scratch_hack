@@ -171,7 +171,7 @@ export default function RegistrationForm() {
   };
 
   return (
-    <section id="register" className="py-20 relative bg-[#0B0F17] overflow-hidden">
+    <section id="register" className="py-20 relative overflow-hidden">
       <div className="absolute top-10 left-10 w-24 h-24 bg-[#FF5CE8]/10 rounded-md rotate-12 blur-xl pointer-events-none"></div>
       <div className="absolute bottom-20 right-10 w-32 h-32 bg-[#00FFB3]/10 rounded-md -rotate-12 blur-2xl pointer-events-none"></div>
 
