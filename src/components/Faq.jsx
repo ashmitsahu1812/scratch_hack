@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronDown, ChevronUp, Mail } from 'lucide-react';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { scratchAudio } from '../lib/soundEffects';
 import { GeoBox, GeoStar, GeoCylinder, GeoDiamond } from './GeoShapes';
@@ -126,22 +126,6 @@ export default function Faq() {
             );
           })}
         </div>
-
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-12 text-center p-6 rounded-md bg-white/5 border border-white/15 space-y-3 backdrop-blur-sm"
-        >
-          <div className="font-heading text-2xl text-white">Still have questions?</div>
-          <p className="text-sm text-white/50 font-sans">Contact the NST SDC hackathon organising team.</p>
-          <div className="flex items-center justify-center gap-4 text-xs font-code text-[#00FFB3]">
-            <a href="mailto:support@scratchhack2026.org" className="hover:underline flex items-center gap-1">
-              <Mail className="w-3.5 h-3.5" /> support@scratchhack2026.org
-            </a>
-          </div>
-        </motion.div>
 
       </motion.div>
     </section>
