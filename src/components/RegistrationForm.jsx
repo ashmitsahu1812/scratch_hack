@@ -323,8 +323,8 @@ export default function RegistrationForm() {
                 {renderEmailField({ section: "leader", errorKey: "leaderEmail", placeholder: "Email Address" })}
               </div>
               <div>
-                <label className={label}>Batch <span className="text-[#FF6B6B]">*</span></label>
-                {renderField({ section: "leader", field: "batch", placeholder: "Batch (e.g. 2024-2028)", errorKey: "leaderBatch" })}
+                <label className={label}>Batch Name <span className="text-[#FF6B6B]">*</span></label>
+                {renderField({ section: "leader", field: "batch", placeholder: "Batch Name", errorKey: "leaderBatch" })}
               </div>
               <div>
                 <label className={label}>Mobile Number <span className="text-[#FF6B6B]">*</span></label>
@@ -352,8 +352,8 @@ export default function RegistrationForm() {
                   {renderEmailField({ section: "member2", errorKey: "member2Email", placeholder: "Email Address" })}
                 </div>
                 <div className="sm:col-span-2">
-                  <label className={label}>Batch <span className="text-[#FF6B6B]">*</span></label>
-                  {renderField({ section: "member2", field: "batch", placeholder: "Batch (e.g. 2024-2028)", errorKey: "member2Batch" })}
+                  <label className={label}>Batch Name <span className="text-[#FF6B6B]">*</span></label>
+                  {renderField({ section: "member2", field: "batch", placeholder: "Batch Name", errorKey: "member2Batch" })}
                 </div>
               </div>
             </div>
@@ -378,8 +378,8 @@ export default function RegistrationForm() {
                   {renderEmailField({ section: "member3", errorKey: "member3Email", placeholder: "Email Address" })}
                 </div>
                 <div className="sm:col-span-2">
-                  <label className={label}>Batch <span className="text-[#FF6B6B]">*</span></label>
-                  {renderField({ section: "member3", field: "batch", placeholder: "Batch (e.g. 2024-2028)", errorKey: "member3Batch" })}
+                  <label className={label}>Batch Name <span className="text-[#FF6B6B]">*</span></label>
+                  {renderField({ section: "member3", field: "batch", placeholder: "Batch Name", errorKey: "member3Batch" })}
                 </div>
               </div>
             </div>
