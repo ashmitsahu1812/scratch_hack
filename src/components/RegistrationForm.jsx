@@ -204,23 +204,25 @@ export default function RegistrationForm() {
         transition={{ duration: 0.6 }}
         className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
       >
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-3 bg-[#A78BFF]/20 text-[#A78BFF] border border-[#A78BFF]/40 rounded-sm font-sans text-sm font-semibold uppercase tracking-wider">
-            <Users className="w-4 h-4" /> Registration Block
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 mb-3 bg-[#A78BFF]/20 text-[#A78BFF] border border-[#A78BFF]/40 rounded-full font-sans text-xs sm:text-sm font-semibold uppercase tracking-wider">
+            <Users className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Registration Block
           </div>
-          <h2 className="font-heading text-5xl sm:text-7xl text-white">Snap Your Team Together</h2>
-          <p className="text-white/55 mt-2 text-sm sm:text-base font-sans">
+          <h2 className="font-heading text-3xl sm:text-5xl lg:text-6xl text-white tracking-wide">
+            Snap Your Team Together
+          </h2>
+          <p className="text-white/60 mt-2 text-xs sm:text-base font-sans max-w-lg mx-auto">
             Choose your registration size. Complete your details to lock in your hackathon spot.
           </p>
         </div>
 
         <div className="mb-6">
           <div className="text-center mb-3">
-            <span className="text-xs font-sans font-semibold text-white/45 uppercase tracking-widest">
+            <span className="text-[11px] sm:text-xs font-sans font-semibold text-white/50 uppercase tracking-widest">
               How many members are registering right now?
             </span>
           </div>
-          <div className="grid grid-cols-3 gap-2 sm:gap-4 max-w-xl mx-auto">
+          <div className="grid grid-cols-3 gap-2 sm:gap-3.5 max-w-lg mx-auto">
             {TEAM_SIZES.map(({ size, label: lbl, icon: Icon, desc, color }) => (
               <button
                 key={size}
@@ -231,21 +233,20 @@ export default function RegistrationForm() {
                   setErrors({});
                   setGlobalError('');
                 }}
-                className="relative flex flex-col items-center justify-center gap-1 sm:gap-2 p-2 sm:p-4 rounded-md border-2 transition-all duration-200 cursor-pointer"
+                className="relative flex flex-col items-center justify-center gap-1 p-2 sm:p-3.5 rounded-lg border-2 transition-all duration-200 cursor-pointer"
                 style={{
                   borderColor: teamSize === size ? color : 'rgba(255,255,255,0.15)',
                   background:  teamSize === size ? `${color}18` : 'rgba(255,255,255,0.04)',
-                  boxShadow:   teamSize === size ? `3px 3px 0 ${color}55` : 'none',
-                  transform:   teamSize === size ? 'translate(-2px,-2px)' : 'none',
+                  boxShadow:   teamSize === size ? `2px 2px 0 ${color}66` : 'none',
                 }}
               >
                 <Icon className="w-5 h-5 sm:w-6 sm:h-6" style={{ color: teamSize === size ? color : 'rgba(255,255,255,0.4)' }} />
                 <div className="text-center">
-                  <div className="font-heading text-lg sm:text-xl leading-tight" style={{ color: teamSize === size ? color : 'rgba(255,255,255,0.7)' }}>{lbl}</div>
-                  <div className="text-[10px] sm:text-xs text-white/40 font-sans mt-0.5">{desc}</div>
+                  <div className="font-heading text-base sm:text-xl leading-tight" style={{ color: teamSize === size ? color : 'rgba(255,255,255,0.8)' }}>{lbl}</div>
+                  <div className="text-[9px] sm:text-xs text-white/40 font-sans mt-0.5 leading-none">{desc}</div>
                 </div>
                 {size === 3 && (
-                  <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-[8px] sm:text-[9px] px-1 sm:px-1.5 py-0.5 rounded-sm bg-[#00FFB3] text-[#0A0E1A] font-sans font-bold uppercase tracking-wider whitespace-nowrap">
+                  <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-[7px] sm:text-[9px] px-1.5 py-0.5 rounded-full bg-[#00FFB3] text-[#070B14] font-sans font-bold uppercase tracking-wider whitespace-nowrap shadow-sm">
                     Complete Team
                   </span>
                 )}
@@ -255,16 +256,16 @@ export default function RegistrationForm() {
         </div>
 
         {(teamSize === 1 || teamSize === 2) && (
-          <div className="mb-8 p-4 sm:p-5 rounded-xl bg-[#FFE500]/10 border-2 border-[#FFE500]/40 flex items-start gap-3.5 snap-anim">
+          <div className="mb-6 sm:mb-8 p-3.5 sm:p-5 rounded-xl bg-[#FFE500]/10 border-2 border-[#FFE500]/40 flex items-start gap-3 snap-anim">
             <Info className="w-5 h-5 text-[#FFE500] shrink-0 mt-0.5" />
             <div>
-              <div className="font-heading text-lg text-[#FFE500] flex items-center gap-2">
+              <div className="font-heading text-base sm:text-lg text-[#FFE500] flex flex-wrap items-center gap-2">
                 <span>{teamSize === 1 ? 'Solo' : 'Duo'} Registration Note</span>
-                <span className="text-[10px] px-2 py-0.5 rounded bg-[#FFE500]/20 text-[#FFE500] font-sans uppercase font-bold tracking-wider">
+                <span className="text-[9px] sm:text-[10px] px-2 py-0.5 rounded bg-[#FFE500]/20 text-[#FFE500] font-sans uppercase font-bold tracking-wider">
                   Clubbing on Event Day
                 </span>
               </div>
-              <p className="text-sm text-slate-200 font-sans mt-1.5 leading-relaxed">
+              <p className="text-xs sm:text-sm text-slate-200 font-sans mt-1 leading-relaxed">
                 {teamSize === 1 ? 'Solo' : 'Duo'} registration is fully allowed! On the event day, <strong className="text-[#FFE500]">NST SDC organisers will club you with other participants</strong> who do not have a 3rd member to form a complete 3-member team before hacking begins.
               </p>
             </div>
@@ -272,12 +273,12 @@ export default function RegistrationForm() {
         )}
 
         {(globalError || errors.duplicateEmail) && (
-          <div className="mb-6 p-4 rounded-md bg-[#FF6B6B]/15 border-2 border-[#FF6B6B]/50 text-white flex items-start gap-3 snap-anim">
+          <div className="mb-6 p-3.5 sm:p-4 rounded-lg bg-[#FF6B6B]/15 border-2 border-[#FF6B6B]/50 text-white flex items-start gap-3 snap-anim">
             <AlertCircle className="w-5 h-5 text-[#FF6B6B] shrink-0 mt-0.5" />
             <div>
-              {globalError && <div className="text-sm font-semibold font-sans">{globalError}</div>}
+              {globalError && <div className="text-xs sm:text-sm font-semibold font-sans">{globalError}</div>}
               {errors.duplicateEmail && (
-                <div className="text-sm font-sans mt-1">
+                <div className="text-xs sm:text-sm font-sans mt-1">
                   <span className="font-bold">Duplicate Email: </span>{errors.duplicateEmail}
                 </div>
               )}
@@ -290,29 +291,29 @@ export default function RegistrationForm() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
           onSubmit={handleSubmit} 
-          className={`space-y-8 ${isSnapping ? 'snap-anim' : ''}`}
+          className={`space-y-4 sm:space-y-6 ${isSnapping ? 'snap-anim' : ''}`}
         >
-          <div className="scratch-block events scratch-notch">
-            <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
-              <div className="font-heading text-xl text-[#FFE500] flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-[#FFE500]" />
-                broadcast [{teamSize === 1 ? 'solo_created' : teamSize === 2 ? 'duo_created' : 'team_created'}]
+          <div className="scratch-block events">
+            <div className="flex items-center justify-between mb-3 border-b border-white/10 pb-2.5 gap-2">
+              <div className="font-heading text-lg sm:text-xl text-[#FFE500] flex items-center gap-2 truncate">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#FFE500] shrink-0" />
+                <span className="truncate">broadcast [{teamSize === 1 ? 'solo_created' : teamSize === 2 ? 'duo_created' : 'team_created'}]</span>
               </div>
-              <span className="scratch-tag scratch-tag-events">Step 1</span>
+              <span className="scratch-tag scratch-tag-events text-[10px] sm:text-xs shrink-0">Step 1</span>
             </div>
             <label className={label}>{teamSize === 1 ? 'Participant / Team Handle' : 'Team Name'} <span className="text-[#FF6B6B]">*</span></label>
             {renderField({ section: "teamName", field: "teamName", placeholder: teamSize === 1 ? "Enter Handle or Team Name" : "Team Name", errorKey: "teamName" })}
           </div>
 
-          <div className="scratch-block motion scratch-notch">
-            <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
-              <div className="font-heading text-xl text-[#00FFB3] flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-[#00FFB3]" />
-                {teamSize === 1 ? 'Your Details (Participant)' : 'Member 1: Team Leader'}
+          <div className="scratch-block motion">
+            <div className="flex items-center justify-between mb-3 border-b border-white/10 pb-2.5 gap-2">
+              <div className="font-heading text-lg sm:text-xl text-[#00FFB3] flex items-center gap-2 truncate">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#00FFB3] shrink-0" />
+                <span className="truncate">{teamSize === 1 ? 'Your Details (Participant)' : 'Member 1: Team Leader'}</span>
               </div>
-              <span className="scratch-tag scratch-tag-motion">Primary Contact</span>
+              <span className="scratch-tag scratch-tag-motion text-[10px] sm:text-xs shrink-0">Primary</span>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label className={label}>Full Name <span className="text-[#FF6B6B]">*</span></label>
                 {renderField({ section: "leader", field: "fullName", placeholder: "Full Name", errorKey: "leaderFullName" })}
@@ -333,15 +334,15 @@ export default function RegistrationForm() {
           </div>
 
           {teamSize >= 2 && (
-            <div className="scratch-block looks scratch-notch">
-              <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
-                <div className="font-heading text-xl text-[#FF5CE8] flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-full bg-[#FF5CE8]" />
-                  Member 2 Details
+            <div className="scratch-block looks">
+              <div className="flex items-center justify-between mb-3 border-b border-white/10 pb-2.5 gap-2">
+                <div className="font-heading text-lg sm:text-xl text-[#FF5CE8] flex items-center gap-2 truncate">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#FF5CE8] shrink-0" />
+                  <span className="truncate">Member 2 Details</span>
                 </div>
-                <span className="scratch-tag scratch-tag-looks">Team Member</span>
+                <span className="scratch-tag scratch-tag-looks text-[10px] sm:text-xs shrink-0">Member 2</span>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div>
                   <label className={label}>Full Name <span className="text-[#FF6B6B]">*</span></label>
                   {renderField({ section: "member2", field: "fullName", placeholder: "Full Name", errorKey: "member2FullName" })}
@@ -359,15 +360,15 @@ export default function RegistrationForm() {
           )}
 
           {teamSize >= 3 && (
-            <div className="scratch-block sensing scratch-notch">
-              <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
-                <div className="font-heading text-xl text-[#A78BFF] flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-full bg-[#A78BFF]" />
-                  Member 3 Details
+            <div className="scratch-block sensing">
+              <div className="flex items-center justify-between mb-3 border-b border-white/10 pb-2.5 gap-2">
+                <div className="font-heading text-lg sm:text-xl text-[#A78BFF] flex items-center gap-2 truncate">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#A78BFF] shrink-0" />
+                  <span className="truncate">Member 3 Details</span>
                 </div>
-                <span className="scratch-tag scratch-tag-sensing">Team Member</span>
+                <span className="scratch-tag scratch-tag-sensing text-[10px] sm:text-xs shrink-0">Member 3</span>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 <div>
                   <label className={label}>Full Name <span className="text-[#FF6B6B]">*</span></label>
                   {renderField({ section: "member3", field: "fullName", placeholder: "Full Name", errorKey: "member3FullName" })}
@@ -384,18 +385,18 @@ export default function RegistrationForm() {
             </div>
           )}
 
-          <div className="text-center pt-2">
+          <div className="text-center pt-3">
             <button
               type="submit" disabled={isSubmitting}
-              className="scratch-btn scratch-btn-events text-xl py-4 px-10 w-full sm:w-auto"
+              className="scratch-btn scratch-btn-events text-lg sm:text-xl py-3.5 sm:py-4 px-8 sm:px-10 w-full sm:w-auto"
             >
               {isSubmitting
-                ? <><Loader2 className="w-6 h-6 animate-spin" /> Compiling &amp; Snapping…</>
-                : <><Sparkles className="w-6 h-6" /> Snap &amp; Register {teamSize === 1 ? 'Solo' : teamSize === 2 ? 'Duo' : 'Team'}</>
+                ? <><Loader2 className="w-5 h-5 sm:w-6 sm:h-6 animate-spin" /> Compiling &amp; Snapping…</>
+                : <><Sparkles className="w-5 h-5 sm:w-6 sm:h-6" /> Snap &amp; Register {teamSize === 1 ? 'Solo' : teamSize === 2 ? 'Duo' : 'Team'}</>
               }
             </button>
-            <div className="text-xs text-white/30 mt-3 font-code">
-              Hosted by NST SDC • Real-time duplicate email detection active
+            <div className="text-[11px] sm:text-xs text-white/40 mt-3 font-sans">
+              Hosted by <strong className="text-white/60">NST SDC</strong> • Real-time duplicate email validation active
             </div>
           </div>
         </motion.form>

@@ -94,13 +94,14 @@ export default function Navbar() {
             <a
               href="#register"
               onClick={() => scratchAudio.playSnap()}
-              className="hidden sm:inline-flex scratch-btn scratch-btn-events text-sm py-2 px-5"
+              className="hidden md:inline-flex items-center gap-1.5 font-heading text-lg tracking-wider px-4 py-1.5 rounded-sm bg-[#FFE500] hover:bg-[#FFE500]/90 text-[#070B14] border-2 border-[#CCB800] shadow-[2px_2px_0_#CCB800] active:translate-x-0.5 active:translate-y-0.5 transition-all"
             >
-              Join Hackathon
+              <Sparkles className="w-4 h-4" />
+              <span>Join Hackathon</span>
             </a>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 text-white/80 hover:text-white rounded-md bg-white/5 border border-white/15 active:scale-95 transition-all"
+              className="md:hidden p-2 text-white/90 hover:text-white rounded-md bg-white/5 border border-white/15 active:scale-95 transition-all"
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5 text-[#FF6B6B]" /> : <Menu className="w-5 h-5 text-[#FFE500]" />}

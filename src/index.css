@@ -69,61 +69,38 @@
 /* ─── Scratch Block (Neo-Brutalist) ─── */
 .scratch-block {
   position: relative;
-  background: rgba(255, 255, 255, 0.07);
-  padding: 1.5rem;
-  padding-bottom: calc(1.5rem + 15px); /* extra space for the bottom bump */
-  margin-bottom: 2px;
-  transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  border-left-width: 5px;
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.25rem;
+  transition: all 0.18s ease;
   backdrop-filter: blur(12px);
-  
-  /* Replace border and box-shadow with drop-shadow to support clip-path shape */
-  border: none !important;
-  box-shadow: none !important;
-  filter: drop-shadow(0 0 1.5px rgba(255,255,255,0.4)) drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.25));
-  
-  /* Authentic Scratch Puzzle Shape */
-  clip-path: polygon(
-    0 0,
-    20px 0, 24px 12px, 44px 12px, 48px 0, /* Top Notch */
-    100% 0,
-    100% calc(100% - 15px),
-    48px calc(100% - 15px), 44px 100%, 24px 100%, 20px calc(100% - 15px), /* Bottom Bump */
-    0 calc(100% - 15px)
-  );
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.35);
+}
+
+.scratch-block.motion   { border-left-color: #00FFB3; }
+.scratch-block.looks    { border-left-color: #FF5CE8; }
+.scratch-block.events   { border-left-color: #FFE500; }
+.scratch-block.control  { border-left-color: #FF6B6B; }
+.scratch-block.sensing  { border-left-color: #A78BFF; }
+.scratch-block.operators{ border-left-color: #00FFB3; }
+.scratch-block.sound    { border-left-color: #FF5CE8; }
+
+.scratch-block:hover {
+  transform: translate(-1.5px, -1.5px);
+  background: rgba(255, 255, 255, 0.07);
+  box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.45);
 }
 
 @media (max-width: 640px) {
   .scratch-block {
-    padding: 1.15rem 1rem;
-    padding-bottom: calc(1.15rem + 15px);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 6px;
   }
 }
-
-.scratch-block::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; bottom: 0;
-  width: 6px;
-  background: var(--accent-green);
-}
-
-.scratch-block.motion::before   { background: #00FFB3; }
-.scratch-block.looks::before    { background: #FF5CE8; }
-.scratch-block.events::before   { background: #FFE500; }
-.scratch-block.control::before  { background: #FF6B6B; }
-.scratch-block.sensing::before  { background: #A78BFF; }
-.scratch-block.operators::before{ background: #00FFB3; }
-.scratch-block.sound::before    { background: #FF5CE8; }
-
-.scratch-block:hover {
-  transform: translate(-2px, -3px);
-  background: rgba(255, 255, 255, 0.12);
-  filter: drop-shadow(0 0 1.5px rgba(255,255,255,0.5)) drop-shadow(6px 6px 0 rgba(0, 0, 0, 0.3));
-}
-
-/* Notch connector tab (No longer needed physically, but keeping class for structural negative margins if needed) */
-.scratch-notch { margin-top: -15px !important; z-index: 5; }
-.scratch-notch:hover { z-index: 15; }
 
 /* ─── Neo-Brutalist Buttons ─── */
 .scratch-btn {
@@ -132,11 +109,11 @@
   justify-content: center;
   gap: 0.5rem;
   font-family: 'Bebas Neue', sans-serif;
-  font-size: 1.2rem;
-  letter-spacing: 0.06em;
-  padding: 0.75rem 1.75rem;
-  border-radius: 4px;
-  border: 2.5px solid transparent;
+  font-size: 1.15rem;
+  letter-spacing: 0.05em;
+  padding: 0.65rem 1.5rem;
+  border-radius: 6px;
+  border: 2px solid transparent;
   cursor: pointer;
   user-select: none;
   transition: all 0.1s ease;
@@ -148,36 +125,40 @@
   background: #00FFB3;
   border-color: #00CC8F;
   color: #0A0E1A;
-  box-shadow: 4px 4px 0 #00CC8F;
+  box-shadow: 3px 3px 0 #00CC8F;
 }
 .scratch-btn-looks {
   background: #FF5CE8;
   border-color: #CC46BC;
   color: #fff;
-  box-shadow: 4px 4px 0 #CC46BC;
+  box-shadow: 3px 3px 0 #CC46BC;
 }
 .scratch-btn-events {
   background: #FFE500;
   border-color: #CCB800;
   color: #0A0E1A;
-  box-shadow: 4px 4px 0 #CCB800;
+  box-shadow: 3px 3px 0 #CCB800;
 }
 .scratch-btn-control {
   background: #FF6B6B;
   border-color: #CC4444;
   color: #fff;
-  box-shadow: 4px 4px 0 #CC4444;
+  box-shadow: 3px 3px 0 #CC4444;
 }
 .scratch-btn-operators {
   background: #FFFFFF;
   border-color: rgba(255,255,255,0.5);
   color: #2B2EFF;
-  box-shadow: 4px 4px 0 rgba(0,0,0,0.25);
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
 }
 
 .scratch-btn:hover {
-  transform: translate(-2px, -2px);
-  filter: brightness(1.08);
+  transform: translate(-1.5px, -1.5px);
+  filter: brightness(1.06);
+}
+.scratch-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 rgba(0,0,0,0.3) !important;
 }
 .scratch-btn:active {
   transform: translate(3px, 3px);
