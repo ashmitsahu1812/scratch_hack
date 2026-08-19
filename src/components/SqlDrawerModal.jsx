@@ -3,8 +3,7 @@ import { Database, Copy, Check, X, Key, Globe, ShieldAlert, Sparkles, Terminal }
 import { getSupabaseStatus, updateSupabaseCredentials, getLocalRegistrationsCount } from '../lib/supabaseClient';
 import { scratchAudio } from '../lib/soundEffects';
 
-const SQL_SCHEMA = `-- Drop old structures if resetting
-drop view if exists public.team_registrations cascade;
+const SQL_SCHEMA = `-- 1. Clean up old tables
 drop table if exists public.team_members cascade;
 drop table if exists public.teams cascade;
 drop table if exists public.team_registrations cascade;
