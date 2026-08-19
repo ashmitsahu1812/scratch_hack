@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import confetti from 'canvas-confetti';
-import { Award, CheckCircle2, X, Users, ShieldCheck } from 'lucide-react';
+import { Award, CheckCircle2, X, Users, ShieldCheck, MessageCircle, ExternalLink } from 'lucide-react';
 import { scratchAudio } from '../lib/soundEffects';
 
 export default function RegistrationBadgeModal({ registrationData, onClose }) {
@@ -17,7 +17,7 @@ export default function RegistrationBadgeModal({ registrationData, onClose }) {
 
   if (!registrationData) return null;
 
-  const { teamName, members = [], source } = registrationData;
+  const { teamName, members = [] } = registrationData;
   const leader = members.find(m => m.role === 'leader') || members[0];
 
   return (
@@ -104,13 +104,31 @@ export default function RegistrationBadgeModal({ registrationData, onClose }) {
           </div>
         </div>
 
-        {/* Actions */}
-        <div className="mt-6 flex flex-col sm:flex-row items-center gap-3">
+        {/* WhatsApp Community Invite Action */}
+        <div className="mt-5 p-4 rounded-xl bg-[#25D366]/10 border border-[#25D366]/30 text-center space-y-3">
+          <div className="text-xs text-white/80 font-sans">
+            <span className="text-[#25D366] font-semibold">Important:</span> Join the official WhatsApp group for live problem statements, mentor assistance, and event announcements.
+          </div>
+          <a
+            href="https://chat.whatsapp.com/LEySMhQIEZs1Z3ApsCBxek?s=sw&p=i&ilr=2"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => scratchAudio.playSnap()}
+            className="scratch-btn w-full py-3.5 bg-[#25D366] hover:bg-[#20bd5a] text-[#0A0E1A] font-heading text-xl border-2 border-[#1da851] shadow-[4px_4px_0_#1da851] flex items-center justify-center gap-2 transition-transform hover:-translate-y-0.5"
+          >
+            <MessageCircle className="w-5 h-5 fill-current" />
+            Join Official WhatsApp Group
+            <ExternalLink className="w-4 h-4 ml-0.5 opacity-80" />
+          </a>
+        </div>
+
+        {/* Modal Dismiss */}
+        <div className="mt-3">
           <button
             onClick={onClose}
-            className="scratch-btn scratch-btn-motion w-full py-3"
+            className="w-full py-2.5 text-xs text-white/50 hover:text-white font-sans transition-colors text-center"
           >
-            Done & Return to Overview
+            Dismiss & Return to Overview
           </button>
         </div>
 
