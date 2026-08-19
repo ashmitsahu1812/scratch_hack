@@ -4,18 +4,51 @@ import { motion } from 'framer-motion';
 import { scratchAudio } from '../lib/soundEffects';
 import { GeoBox, GeoCylinder, GeoStar, GeoDiamond } from './GeoShapes';
 
+/* ── Target Saturday 10:00 AM IST Countdown ── */
+function getTargetSaturdayIST() {
+  const now = new Date();
+  const istOffsetMs = 5.5 * 60 * 60 * 1000;
+  const nowUtc = now.getTime() + (now.getTimezoneOffset() * 60000);
+  const nowIST = new Date(nowUtc + istOffsetMs);
+
+  const dayOfWeek = nowIST.getDay(); // 0 = Sun, ..., 6 = Sat
+  let daysUntilSaturday = (6 - dayOfWeek + 7) % 7;
+
+  const targetIST = new Date(nowIST);
+  targetIST.setDate(nowIST.getDate() + daysUntilSaturday);
+  targetIST.setHours(10, 0, 0, 0);
+
+  // If today is Saturday and past 10:00 AM IST, jump to next Saturday
+  if (daysUntilSaturday === 0 && nowIST.getTime() >= targetIST.getTime()) {
+    targetIST.setDate(targetIST.getDate() + 7);
+  }
+
+  // Convert targetIST back to real epoch timestamp
+  return targetIST.getTime() - istOffsetMs;
+}
+
+function getTimeRemaining() {
+  const target = getTargetSaturdayIST();
+  const diff = target - Date.now();
+
+  if (diff <= 0) {
+    return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+  }
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  return { days, hours, minutes, seconds };
+}
+
 export default function Hero() {
-  const [timeLeft, setTimeLeft] = useState({ days: 14, hours: 8, minutes: 42, seconds: 15 });
+  const [timeLeft, setTimeLeft] = useState(getTimeRemaining);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev.seconds > 0)   return { ...prev, seconds: prev.seconds - 1 };
-        if (prev.minutes > 0)   return { ...prev, minutes: prev.minutes - 1, seconds: 59 };
-        if (prev.hours > 0)     return { ...prev, hours: prev.hours - 1, minutes: 59, seconds: 59 };
-        if (prev.days > 0)      return { ...prev, days: prev.days - 1, hours: 23, minutes: 59, seconds: 59 };
-        return prev;
-      });
+      setTimeLeft(getTimeRemaining());
     }, 1000);
     return () => clearInterval(timer);
   }, []);
@@ -127,9 +160,9 @@ export default function Hero() {
             <div className="flex items-center justify-between border-b border-white/15 pb-4 mb-6">
               <div className="flex items-center gap-2 font-heading text-xl text-[#FFE500]">
                 <Clock className="w-5 h-5" />
-                repeat until (hackathon_begins)
+                repeat until (saturday_10_00_am_ist)
               </div>
-              <span className="scratch-tag scratch-tag-events">LIVE COUNTDOWN</span>
+              <span className="scratch-tag scratch-tag-events">SATURDAY 10:00 AM IST</span>
             </div>
 
             <div className="grid grid-cols-4 gap-3 sm:gap-6 text-center">
