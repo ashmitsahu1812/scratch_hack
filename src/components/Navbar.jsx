@@ -44,7 +44,7 @@ export default function Navbar() {
                     '26
                   </span>
                 </div>
-                <div className="text-[10px] text-white/40 font-sans">Hosted by <span className="text-white/60 font-semibold">Newton School of Technology</span></div>
+                <div className="text-[10px] text-white/40 font-sans">Hosted by <span className="text-white/60 font-semibold">NST SDC</span></div>
               </div>
             </a>
 

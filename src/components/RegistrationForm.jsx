@@ -252,7 +252,7 @@ export default function RegistrationForm() {
               <div className="font-heading text-lg text-[#FFE500]">Solo/Duo Notice</div>
               <p className="text-sm text-white/70 font-sans mt-1 leading-relaxed">
                 {teamSize === 1 ? 'Solo' : 'Duo'} participation is fully valid and allowed.
-                If you'd like to find {teamSize === 1 ? 'a team' : 'a 3rd member'}, contact <span className="text-[#FFE500]">Newton School of Technology</span> organisers
+                If you'd like to find {teamSize === 1 ? 'a team' : 'a 3rd member'}, contact <span className="text-[#FFE500]">NST SDC</span> organisers
                 who can try to connect you with other participants looking for a team.
               </p>
             </div>
@@ -391,7 +391,7 @@ export default function RegistrationForm() {
               }
             </button>
             <div className="text-xs text-white/30 mt-3 font-code">
-              Hosted by Newton School of Technology • Real-time duplicate email detection active
+              Hosted by NST SDC • Real-time duplicate email detection active
             </div>
           </div>
 

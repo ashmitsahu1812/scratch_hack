@@ -43,7 +43,7 @@ const faqs = [
   },
   {
     q: "Do all participants get a certificate?",
-    a: "Yes! Every team member who submits a valid, playable Scratch project by the deadline receives a digital certificate of participation from Newton School of Technology, regardless of final placement."
+    a: "Yes! Every team member who submits a valid, playable Scratch project by the deadline receives a digital certificate of participation from NST SDC, regardless of final placement."
   },
 ];
 
@@ -135,7 +135,7 @@ export default function Faq() {
           className="mt-12 text-center p-6 rounded-md bg-white/5 border border-white/15 space-y-3 backdrop-blur-sm"
         >
           <div className="font-heading text-2xl text-white">Still have questions?</div>
-          <p className="text-sm text-white/50 font-sans">Contact the Newton School of Technology hackathon organising team.</p>
+          <p className="text-sm text-white/50 font-sans">Contact the NST SDC hackathon organising team.</p>
           <div className="flex items-center justify-center gap-4 text-xs font-code text-[#00FFB3]">
             <a href="mailto:support@scratchhack2026.org" className="hover:underline flex items-center gap-1">
               <Mail className="w-3.5 h-3.5" /> support@scratchhack2026.org

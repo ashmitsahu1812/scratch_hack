@@ -107,7 +107,7 @@ export default function Hero() {
         <div className="flex justify-center mb-8">
           <div className="inline-flex items-center gap-3 px-5 py-2.5 bg-[#FFE500] text-[#2B2EFF] font-sans font-bold text-sm rounded-sm border-2 border-[#CCB800] shadow-[4px_4px_0_#CCB800] animate-pulse">
             <Flag className="w-4 h-4 fill-[#2B2EFF]" />
-            Hosted by Newton School of Technology
+            Hosted by NST SDC
           </div>
         </div>
 
@@ -130,7 +130,7 @@ export default function Hero() {
           <p className="text-lg sm:text-xl text-white/80 max-w-2xl mx-auto font-sans leading-relaxed mb-8">
             Build a <span className="text-[#00FFB3] font-semibold">playable Scratch game</span> from a problem statement in{' '}
             <span className="text-[#FFE500] font-semibold">4 hours</span>, then present &amp; defend your work in a{' '}
-            <span className="text-[#FF5CE8] font-semibold">2-hour final round</span>. Hosted by Newton School of Technology.
+            <span className="text-[#FF5CE8] font-semibold">2-hour final round</span>. Hosted by NST SDC.
           </p>
 
           {/* CTA Buttons */}
