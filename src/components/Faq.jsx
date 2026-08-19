@@ -7,7 +7,7 @@ import { GeoBox, GeoStar, GeoCylinder, GeoDiamond } from './GeoShapes';
 const faqs = [
   {
     q: "Who can participate?",
-    a: "Any student! Teams must have exactly 3 members. Each participant may belong to only one team. All skill levels are welcome — from beginners to experienced game developers."
+    a: "Any student! Teams compete with 3 members. Solo (1 member) and Duo (2 members) registrations are fully allowed — on the event day, NST SDC organisers will club solo and duo participants with each other to form a complete 3-member team before hacking begins."
   },
   {
     q: "What platform must I use?",

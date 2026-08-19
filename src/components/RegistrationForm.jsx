@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import {
-  Users, Sparkles, AlertCircle, Loader2, UsersRound
+  Users, Sparkles, AlertCircle, Loader2,
+  UserRound, UsersRound, Info
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { registerTeam } from '../lib/supabaseClient';
@@ -8,10 +9,17 @@ import { scratchAudio } from '../lib/soundEffects';
 import RegistrationBadgeModal from './RegistrationBadgeModal';
 import { GeoBox, GeoStar, GeoCylinder, GeoDiamond } from './GeoShapes';
 
+/* ─── Team size config ─── */
+const TEAM_SIZES = [
+  { size: 1, label: 'Solo',  icon: UserRound,   desc: '1 member',  color: '#FFE500' },
+  { size: 2, label: 'Duo',   icon: Users,       desc: '2 members', color: '#FF5CE8' },
+  { size: 3, label: 'Trio',  icon: UsersRound,  desc: '3 members', color: '#00FFB3' },
+];
+
 const EMPTY_MEMBER = { fullName: '', email: '', batch: '' };
 
 export default function RegistrationForm() {
-  const teamSize = 3;
+  const [teamSize, setTeamSize] = useState(3);
   const [formData, setFormData] = useState({
     teamName: '',
     leader:  { fullName: '', email: '', batch: '', phone: '' },
@@ -62,7 +70,7 @@ export default function RegistrationForm() {
     if (!formData.teamName.trim()) e.teamName = 'Team name is required.';
     else if (formData.teamName.trim().length < 2) e.teamName = 'Minimum 2 characters.';
 
-    // Member 1 (Leader)
+    // Member 1 (Leader / Primary Registrant)
     if (!formData.leader.fullName.trim()) e.leaderFullName = 'Full name is required.';
     if (!formData.leader.email.trim())    e.leaderEmail    = 'Email is required.';
     else if (!emailRe.test(formData.leader.email.trim())) e.leaderEmail = 'Enter a valid email address.';
@@ -71,22 +79,26 @@ export default function RegistrationForm() {
     else if (!phoneRe.test(formData.leader.phone.trim().replace(/\D/g, ''))) e.leaderPhone = 'Must be exactly 10 digits.';
 
     // Member 2
-    if (!formData.member2.fullName.trim()) e.member2FullName = 'Full name is required.';
-    if (!formData.member2.email.trim())    e.member2Email    = 'Email is required.';
-    else if (!emailRe.test(formData.member2.email.trim())) e.member2Email = 'Enter a valid email.';
-    if (!formData.member2.batch.trim())    e.member2Batch    = 'Batch name is required.';
+    if (teamSize >= 2) {
+      if (!formData.member2.fullName.trim()) e.member2FullName = 'Full name is required.';
+      if (!formData.member2.email.trim())    e.member2Email    = 'Email is required.';
+      else if (!emailRe.test(formData.member2.email.trim())) e.member2Email = 'Enter a valid email.';
+      if (!formData.member2.batch.trim())    e.member2Batch    = 'Batch name is required.';
+    }
 
     // Member 3
-    if (!formData.member3.fullName.trim()) e.member3FullName = 'Full name is required.';
-    if (!formData.member3.email.trim())    e.member3Email    = 'Email is required.';
-    else if (!emailRe.test(formData.member3.email.trim())) e.member3Email = 'Enter a valid email.';
-    if (!formData.member3.batch.trim())    e.member3Batch    = 'Batch name is required.';
+    if (teamSize >= 3) {
+      if (!formData.member3.fullName.trim()) e.member3FullName = 'Full name is required.';
+      if (!formData.member3.email.trim())    e.member3Email    = 'Email is required.';
+      else if (!emailRe.test(formData.member3.email.trim())) e.member3Email = 'Enter a valid email.';
+      if (!formData.member3.batch.trim())    e.member3Batch    = 'Batch name is required.';
+    }
 
     // Check duplicate emails within team
     const activeEmails = [
       formData.leader.email.toLowerCase().trim(),
-      formData.member2.email.toLowerCase().trim(),
-      formData.member3.email.toLowerCase().trim()
+      ...(teamSize >= 2 ? [formData.member2.email.toLowerCase().trim()] : []),
+      ...(teamSize >= 3 ? [formData.member3.email.toLowerCase().trim()] : [])
     ].filter(Boolean);
     const dup = activeEmails.find((em, i) => activeEmails.indexOf(em) !== i);
     if (dup) e.duplicateEmail = `"${dup}" appears more than once — every member must have a unique email.`;
@@ -109,7 +121,7 @@ export default function RegistrationForm() {
     setTimeout(async () => {
       setIsSubmitting(true);
       try {
-        const result = await registerTeam({ ...formData, teamSize: 3 });
+        const result = await registerTeam({ ...formData, teamSize });
         setIsSubmitting(false); setIsSnapping(false);
         setConfirmedRegistration(result);
       } catch (err) {
@@ -194,18 +206,70 @@ export default function RegistrationForm() {
       >
         <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-3 bg-[#A78BFF]/20 text-[#A78BFF] border border-[#A78BFF]/40 rounded-sm font-sans text-sm font-semibold uppercase tracking-wider">
-            <Users className="w-4 h-4" /> Team Registration Block
+            <Users className="w-4 h-4" /> Registration Block
           </div>
           <h2 className="font-heading text-5xl sm:text-7xl text-white">Snap Your Team Together</h2>
           <p className="text-white/55 mt-2 text-sm sm:text-base font-sans">
-            Complete your team details to lock in your hackathon spot.
+            Choose your registration size. Complete your details to lock in your hackathon spot.
           </p>
+        </div>
 
-          <div className="mt-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FFE500]/15 border border-[#FFE500]/40 text-[#FFE500] text-xs sm:text-sm font-sans font-bold">
-            <UsersRound className="w-4 h-4" />
-            <span>Team Requirement: Exactly 3 Members Per Team</span>
+        <div className="mb-6">
+          <div className="text-center mb-3">
+            <span className="text-xs font-sans font-semibold text-white/45 uppercase tracking-widest">
+              How many members are registering right now?
+            </span>
+          </div>
+          <div className="grid grid-cols-3 gap-4 max-w-xl mx-auto">
+            {TEAM_SIZES.map(({ size, label: lbl, icon: Icon, desc, color }) => (
+              <button
+                key={size}
+                type="button"
+                onClick={() => {
+                  scratchAudio.playSnap();
+                  setTeamSize(size);
+                  setErrors({});
+                  setGlobalError('');
+                }}
+                className="relative flex flex-col items-center gap-2 p-4 rounded-md border-2 transition-all duration-200 cursor-pointer"
+                style={{
+                  borderColor: teamSize === size ? color : 'rgba(255,255,255,0.15)',
+                  background:  teamSize === size ? `${color}18` : 'rgba(255,255,255,0.04)',
+                  boxShadow:   teamSize === size ? `4px 4px 0 ${color}55` : 'none',
+                  transform:   teamSize === size ? 'translate(-2px,-2px)' : 'none',
+                }}
+              >
+                <Icon className="w-6 h-6" style={{ color: teamSize === size ? color : 'rgba(255,255,255,0.4)' }} />
+                <div>
+                  <div className="font-heading text-xl" style={{ color: teamSize === size ? color : 'rgba(255,255,255,0.7)' }}>{lbl}</div>
+                  <div className="text-xs text-white/40 font-sans">{desc}</div>
+                </div>
+                {size === 3 && (
+                  <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-[9px] px-1.5 py-0.5 rounded-sm bg-[#00FFB3] text-[#0A0E1A] font-sans font-bold uppercase tracking-wider whitespace-nowrap">
+                    Complete Team
+                  </span>
+                )}
+              </button>
+            ))}
           </div>
         </div>
+
+        {(teamSize === 1 || teamSize === 2) && (
+          <div className="mb-8 p-4 sm:p-5 rounded-xl bg-[#FFE500]/10 border-2 border-[#FFE500]/40 flex items-start gap-3.5 snap-anim">
+            <Info className="w-5 h-5 text-[#FFE500] shrink-0 mt-0.5" />
+            <div>
+              <div className="font-heading text-lg text-[#FFE500] flex items-center gap-2">
+                <span>{teamSize === 1 ? 'Solo' : 'Duo'} Registration Note</span>
+                <span className="text-[10px] px-2 py-0.5 rounded bg-[#FFE500]/20 text-[#FFE500] font-sans uppercase font-bold tracking-wider">
+                  Clubbing on Event Day
+                </span>
+              </div>
+              <p className="text-sm text-slate-200 font-sans mt-1.5 leading-relaxed">
+                {teamSize === 1 ? 'Solo' : 'Duo'} registration is fully allowed! On the event day, <strong className="text-[#FFE500]">NST SDC organisers will club you with other participants</strong> who do not have a 3rd member to form a complete 3-member team before hacking begins.
+              </p>
+            </div>
+          </div>
+        )}
 
         {(globalError || errors.duplicateEmail) && (
           <div className="mb-6 p-4 rounded-md bg-[#FF6B6B]/15 border-2 border-[#FF6B6B]/50 text-white flex items-start gap-3 snap-anim">
@@ -232,19 +296,19 @@ export default function RegistrationForm() {
             <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
               <div className="font-heading text-xl text-[#FFE500] flex items-center gap-2">
                 <span className="w-3 h-3 rounded-full bg-[#FFE500]" />
-                broadcast [team_created]
+                broadcast [{teamSize === 1 ? 'solo_created' : teamSize === 2 ? 'duo_created' : 'team_created'}]
               </div>
               <span className="scratch-tag scratch-tag-events">Step 1</span>
             </div>
-            <label className={label}>Team Name <span className="text-[#FF6B6B]">*</span></label>
-            {renderField({ section: "teamName", field: "teamName", placeholder: "Team Name", errorKey: "teamName" })}
+            <label className={label}>{teamSize === 1 ? 'Participant / Team Handle' : 'Team Name'} <span className="text-[#FF6B6B]">*</span></label>
+            {renderField({ section: "teamName", field: "teamName", placeholder: teamSize === 1 ? "Enter Handle or Team Name" : "Team Name", errorKey: "teamName" })}
           </div>
 
           <div className="scratch-block motion scratch-notch">
             <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
               <div className="font-heading text-xl text-[#00FFB3] flex items-center gap-2">
                 <span className="w-3 h-3 rounded-full bg-[#00FFB3]" />
-                Member 1: Team Leader
+                {teamSize === 1 ? 'Your Details (Participant)' : 'Member 1: Team Leader'}
               </div>
               <span className="scratch-tag scratch-tag-motion">Primary Contact</span>
             </div>
@@ -259,62 +323,66 @@ export default function RegistrationForm() {
               </div>
               <div>
                 <label className={label}>Batch <span className="text-[#FF6B6B]">*</span></label>
-                {renderField({ section: "leader", field: "batch", placeholder: "Batch", errorKey: "leaderBatch" })}
+                {renderField({ section: "leader", field: "batch", placeholder: "Batch (e.g. 2024-2028)", errorKey: "leaderBatch" })}
               </div>
               <div>
                 <label className={label}>Mobile Number <span className="text-[#FF6B6B]">*</span></label>
-                {renderField({ section: "leader", field: "phone", type: "tel", maxLen: 10, placeholder: "Mobile Number", errorKey: "leaderPhone" })}
+                {renderField({ section: "leader", field: "phone", type: "tel", maxLen: 10, placeholder: "10-digit Phone", errorKey: "leaderPhone" })}
               </div>
             </div>
           </div>
 
-          <div className="scratch-block looks scratch-notch">
-            <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
-              <div className="font-heading text-xl text-[#FF5CE8] flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-[#FF5CE8]" />
-                Member 2 Details
+          {teamSize >= 2 && (
+            <div className="scratch-block looks scratch-notch">
+              <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
+                <div className="font-heading text-xl text-[#FF5CE8] flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-[#FF5CE8]" />
+                  Member 2 Details
+                </div>
+                <span className="scratch-tag scratch-tag-looks">Team Member</span>
               </div>
-              <span className="scratch-tag scratch-tag-looks">Team Member</span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className={label}>Full Name <span className="text-[#FF6B6B]">*</span></label>
+                  {renderField({ section: "member2", field: "fullName", placeholder: "Full Name", errorKey: "member2FullName" })}
+                </div>
+                <div>
+                  <label className={label}>Email Address <span className="text-[#FF6B6B]">*</span></label>
+                  {renderEmailField({ section: "member2", errorKey: "member2Email", placeholder: "Email Address" })}
+                </div>
+                <div className="sm:col-span-2">
+                  <label className={label}>Batch <span className="text-[#FF6B6B]">*</span></label>
+                  {renderField({ section: "member2", field: "batch", placeholder: "Batch (e.g. 2024-2028)", errorKey: "member2Batch" })}
+                </div>
+              </div>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className={label}>Full Name <span className="text-[#FF6B6B]">*</span></label>
-                {renderField({ section: "member2", field: "fullName", placeholder: "Full Name", errorKey: "member2FullName" })}
-              </div>
-              <div>
-                <label className={label}>Email Address <span className="text-[#FF6B6B]">*</span></label>
-                {renderEmailField({ section: "member2", errorKey: "member2Email", placeholder: "Email Address" })}
-              </div>
-              <div className="sm:col-span-2">
-                <label className={label}>Batch <span className="text-[#FF6B6B]">*</span></label>
-                {renderField({ section: "member2", field: "batch", placeholder: "Batch", errorKey: "member2Batch" })}
-              </div>
-            </div>
-          </div>
+          )}
 
-          <div className="scratch-block sensing scratch-notch">
-            <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
-              <div className="font-heading text-xl text-[#A78BFF] flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-[#A78BFF]" />
-                Member 3 Details
+          {teamSize >= 3 && (
+            <div className="scratch-block sensing scratch-notch">
+              <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
+                <div className="font-heading text-xl text-[#A78BFF] flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-[#A78BFF]" />
+                  Member 3 Details
+                </div>
+                <span className="scratch-tag scratch-tag-sensing">Team Member</span>
               </div>
-              <span className="scratch-tag scratch-tag-sensing">Team Member</span>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className={label}>Full Name <span className="text-[#FF6B6B]">*</span></label>
+                  {renderField({ section: "member3", field: "fullName", placeholder: "Full Name", errorKey: "member3FullName" })}
+                </div>
+                <div>
+                  <label className={label}>Email Address <span className="text-[#FF6B6B]">*</span></label>
+                  {renderEmailField({ section: "member3", errorKey: "member3Email", placeholder: "Email Address" })}
+                </div>
+                <div className="sm:col-span-2">
+                  <label className={label}>Batch <span className="text-[#FF6B6B]">*</span></label>
+                  {renderField({ section: "member3", field: "batch", placeholder: "Batch (e.g. 2024-2028)", errorKey: "member3Batch" })}
+                </div>
+              </div>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className={label}>Full Name <span className="text-[#FF6B6B]">*</span></label>
-                {renderField({ section: "member3", field: "fullName", placeholder: "Full Name", errorKey: "member3FullName" })}
-              </div>
-              <div>
-                <label className={label}>Email Address <span className="text-[#FF6B6B]">*</span></label>
-                {renderEmailField({ section: "member3", errorKey: "member3Email", placeholder: "Email Address" })}
-              </div>
-              <div className="sm:col-span-2">
-                <label className={label}>Batch <span className="text-[#FF6B6B]">*</span></label>
-                {renderField({ section: "member3", field: "batch", placeholder: "Batch", errorKey: "member3Batch" })}
-              </div>
-            </div>
-          </div>
+          )}
 
           <div className="text-center pt-2">
             <button
@@ -323,7 +391,7 @@ export default function RegistrationForm() {
             >
               {isSubmitting
                 ? <><Loader2 className="w-6 h-6 animate-spin" /> Compiling &amp; Snapping…</>
-                : <><Sparkles className="w-6 h-6" /> Snap &amp; Register Team</>
+                : <><Sparkles className="w-6 h-6" /> Snap &amp; Register {teamSize === 1 ? 'Solo' : teamSize === 2 ? 'Duo' : 'Team'}</>
               }
             </button>
             <div className="text-xs text-white/30 mt-3 font-code">
