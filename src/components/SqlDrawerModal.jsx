@@ -45,7 +45,45 @@ with check (true);
 
 create policy "Allow public to read team registrations" 
 on public.team_registrations for select 
-using (true);`;
+using (true);
+
+-- Trigger to prevent ANY duplicate member email across all rows & columns
+create or replace function check_no_duplicate_member_emails()
+returns trigger as $$
+declare
+    dup_email text;
+begin
+    with new_emails as (
+        select lower(trim(new.leader_email)) as email
+        union all
+        select lower(trim(new.member2_email)) where new.member2_email is not null and trim(new.member2_email) <> ''
+        union all
+        select lower(trim(new.member3_email)) where new.member3_email is not null and trim(new.member3_email) <> ''
+    )
+    select ne.email into dup_email
+    from new_emails ne
+    where exists (
+        select 1 from public.team_registrations t
+        where (t.id is distinct from new.id)
+          and (
+            lower(trim(t.leader_email)) = ne.email
+            or lower(trim(coalesce(t.member2_email, ''))) = ne.email
+            or lower(trim(coalesce(t.member3_email, ''))) = ne.email
+          )
+    )
+    limit 1;
+
+    if dup_email is not null then
+        raise exception 'Email "%" is already registered in another team. Duplicate members are not allowed.', dup_email;
+    end if;
+
+    return new;
+end;
+$$ language plpgsql;
+
+create or replace trigger trg_check_no_duplicate_emails
+before insert or update on public.team_registrations
+for each row execute function check_no_duplicate_member_emails();`;
 
 export default function SqlDrawerModal({ isOpen, onClose }) {
   const [copied, setCopied] = useState(false);

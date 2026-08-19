@@ -110,6 +110,26 @@ export const registerTeam = async (formData) => {
         throw new Error(`Team name "${normalizedTeamName}" is already taken. Please choose another name.`);
       }
 
+      // Check for duplicate emails across existing teams in the database
+      const emailsToCheck = [
+        leader.email.toLowerCase().trim(),
+        (teamSize >= 2 && member2?.email) ? member2.email.toLowerCase().trim() : null,
+        (teamSize >= 3 && member3?.email) ? member3.email.toLowerCase().trim() : null
+      ].filter(Boolean);
+
+      for (const email of emailsToCheck) {
+        const { data: dupData } = await supabase
+          .from('team_registrations')
+          .select('team_name, leader_email, member2_email, member3_email')
+          .or(`leader_email.ilike.${email},member2_email.ilike.${email},member3_email.ilike.${email}`)
+          .limit(1)
+          .maybeSingle();
+
+        if (dupData) {
+          throw new Error(`Email "${email}" is already registered with team "${dupData.team_name}". Each participant can only be in one team!`);
+        }
+      }
+
       // Insert the 1 single row for the team
       const { data: insertedTeam, error: insertErr } = await supabase
         .from('team_registrations')
