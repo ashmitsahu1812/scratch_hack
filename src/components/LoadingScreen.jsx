@@ -30,10 +30,10 @@ export default function LoadingScreen({ onComplete }) {
           clearInterval(interval);
           return 100;
         }
-        const next = prev + Math.floor(Math.random() * 8) + 4;
+        const next = prev + Math.floor(Math.random() * 4) + 2;
         return next > 100 ? 100 : next;
       });
-    }, 90);
+    }, 110);
 
     return () => clearInterval(interval);
   }, []);
@@ -48,7 +48,7 @@ export default function LoadingScreen({ onComplete }) {
     if (progress === 100) {
       const timer = setTimeout(() => {
         onComplete();
-      }, 500);
+      }, 700);
       return () => clearTimeout(timer);
     }
   }, [progress, onComplete]);
