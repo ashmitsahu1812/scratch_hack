@@ -39,7 +39,7 @@ export default function Navbar() {
               </div>
               <div>
                 <div className="flex items-center gap-1.5 font-heading text-2xl text-white tracking-wider">
-                  Scratch<span className="text-[#FFE500]">Hack</span>
+                  Scratch<span className="text-[#FFE500]">Storm</span>
                   <span className="text-xs px-2 py-0.5 rounded bg-white/10 text-white/70 font-sans font-semibold tracking-normal border border-white/20">
                     '26
                   </span>

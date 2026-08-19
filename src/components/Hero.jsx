@@ -122,9 +122,16 @@ export default function Hero() {
             <div className="relative bg-white border-4 border-[#2B2EFF] rounded-sm px-8 py-5 shadow-[6px_6px_0_#FFE500]">
               <h1 className="font-heading text-5xl sm:text-7xl lg:text-8xl text-[#2B2EFF] leading-none tracking-wide">
                 SCRATCH<br />
-                <span className="text-[#FF5CE8]">HACK</span><span className="text-[#2B2EFF]"> '26</span>
+                <span className="text-[#FF5CE8]">STORM</span><span className="text-[#2B2EFF]"> '26</span>
               </h1>
             </div>
+          </div>
+
+          {/* Official Tagline / Quote */}
+          <div className="mb-6">
+            <span className="inline-block font-heading text-xl sm:text-2xl lg:text-3xl text-[#FFE500] tracking-widest uppercase bg-[#FFE500]/10 border border-[#FFE500]/30 px-6 py-2 rounded-sm shadow-[3px_3px_0_rgba(255,229,0,0.15)]">
+              “Imagine. Create. Conquer.”
+            </span>
           </div>
 
           <p className="text-lg sm:text-xl text-white/80 max-w-2xl mx-auto font-sans leading-relaxed mb-8">

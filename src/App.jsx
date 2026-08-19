@@ -61,7 +61,7 @@ export default function App() {
               {/* Bottom Row */}
               <div className="flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left border-t border-white/10 pt-6">
                 <div className="flex items-center justify-center md:justify-start gap-2 font-heading text-xl text-white tracking-wider">
-                  Scratch<span className="text-[#FFE500]">Hack</span> '26
+                  Scratch<span className="text-[#FFE500]">Storm</span> '26
                 </div>
 
                 <div className="flex items-center gap-3">
@@ -73,7 +73,7 @@ export default function App() {
                   <div>
                     Built with <Heart className="w-3.5 h-3.5 text-[#FF5CE8] inline fill-current" /> for Scratchers worldwide
                   </div>
-                  <div>© 2026 ScratchHack Org. All rights reserved.</div>
+                  <div>© 2026 ScratchStorm. All rights reserved.</div>
                 </div>
               </div>
 

@@ -55,7 +55,7 @@ export default function RegistrationBadgeModal({ registrationData, onClose }) {
           <div className="flex items-center justify-between border-b border-[#26354F] pb-4">
             <div className="flex items-center gap-2 font-heading font-bold text-lg text-[#FFAB19]">
               <Award className="w-5 h-5 text-[#FFAB19]" />
-              ScratchHack '26 Official Pass
+              ScratchStorm '26 Official Pass
             </div>
             <span className="scratch-tag scratch-tag-operators">
               <ShieldCheck className="w-3.5 h-3.5" /> VERIFIED
