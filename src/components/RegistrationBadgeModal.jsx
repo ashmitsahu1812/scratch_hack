@@ -104,11 +104,6 @@ export default function RegistrationBadgeModal({ registrationData, onClose }) {
           </div>
         </div>
 
-        {/* Database Source Badge */}
-        <div className="mt-4 text-center text-xs text-slate-400">
-          Status: <span className="text-[#59C059] font-mono">{source === 'supabase' ? 'Synced to Supabase DB' : 'Stored in Local Demo DB'}</span>
-        </div>
-
         {/* Actions */}
         <div className="mt-6 flex flex-col sm:flex-row items-center gap-3">
           <button
