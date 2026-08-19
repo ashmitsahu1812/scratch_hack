@@ -92,8 +92,11 @@ export default function Tracks() {
 
         {/* Example problem statement cards */}
         <div className="mb-6">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-heading text-2xl text-white/60 uppercase tracking-widest">Example Statements <span className="text-sm text-white/30 font-sans normal-case tracking-normal">(illustrative only — actual statements released on event day)</span></h3>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+            <h3 className="font-heading text-2xl text-white uppercase tracking-wider">Example Statements</h3>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded bg-[#FFE500]/15 border border-[#FFE500]/40 text-[#FFE500] text-xs sm:text-sm font-sans font-bold tracking-wide">
+              <span>FOR REFERENCE ONLY — ACTUAL PROBLEM STATEMENTS RELEASED ON EVENT DAY</span>
+            </div>
           </div>
           <motion.div 
           initial={{ opacity: 0 }}
