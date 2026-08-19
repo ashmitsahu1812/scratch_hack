@@ -21,8 +21,8 @@ export default function RegistrationBadgeModal({ registrationData, onClose }) {
   const leader = members.find(m => m.role === 'leader') || members[0];
 
   return (
-    <div className="modal-overlay">
-      <div className="scratch-block events snap-anim max-w-xl w-full bg-[#151C2D] border-2 border-[#FFAB19]/40 shadow-2xl p-6 sm:p-8 relative">
+    <div className="modal-overlay p-3 sm:p-6 overflow-y-auto">
+      <div className="scratch-block events snap-anim max-w-xl w-full my-auto max-h-[92vh] overflow-y-auto bg-[#151C2D] border-2 border-[#FFAB19]/40 shadow-2xl p-4 sm:p-8 relative">
         
         {/* Close Button */}
         <button

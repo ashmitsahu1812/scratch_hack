@@ -90,19 +90,20 @@ export default function Navbar() {
           </div>
 
           {/* CTA + Hamburger */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
             <a
               href="#register"
               onClick={() => scratchAudio.playSnap()}
-              className="scratch-btn scratch-btn-events text-sm py-2 px-5"
+              className="scratch-btn scratch-btn-events text-xs sm:text-sm py-1.5 px-3 sm:py-2 sm:px-5 shrink-0"
             >
               Join Hackathon
             </a>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 text-white/70 hover:text-white"
+              className="md:hidden p-2 text-white/70 hover:text-white rounded-md bg-white/5 border border-white/10"
+              aria-label="Toggle Navigation Menu"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
             </button>
           </div>
 
@@ -119,13 +120,17 @@ export default function Navbar() {
             <button onClick={handleStop} className="flex-1 py-2 rounded bg-[#FF6B6B]/20 text-[#FF6B6B] text-xs font-bold flex items-center justify-center gap-1 border border-[#FF6B6B]/40">
               <Octagon className="w-4 h-4 fill-[#FF6B6B]" /> Stop
             </button>
+            <button onClick={handleToggleSound} className="px-3 py-2 rounded bg-white/10 text-white text-xs font-bold flex items-center justify-center gap-1 border border-white/20">
+              {soundEnabled ? <Volume2 className="w-4 h-4 text-[#A78BFF]" /> : <VolumeX className="w-4 h-4 text-white/40" />}
+            </button>
           </div>
           {[
             { href: '#overview', label: 'Overview' },
             { href: '#register', label: 'Register Now' },
-            { href: '#tracks',   label: 'Tracks' },
+            { href: '#tracks',   label: 'Problem Statements' },
             { href: '#schedule', label: 'Schedule' },
-            { href: '#prizes',   label: 'Prizes' },
+            { href: '#judging',  label: 'Judging Criteria' },
+            { href: '#prizes',   label: 'Prizes & Perks' },
             { href: '#faq',      label: 'FAQ' },
           ].map(({ href, label }) => (
             <a key={href} href={href} onClick={() => setMobileMenuOpen(false)}

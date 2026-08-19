@@ -92,6 +92,13 @@
   );
 }
 
+@media (max-width: 640px) {
+  .scratch-block {
+    padding: 1.15rem 1rem;
+    padding-bottom: calc(1.15rem + 15px);
+  }
+}
+
 .scratch-block::before {
   content: '';
   position: absolute;
@@ -186,7 +193,7 @@
   padding: 0.85rem 1.1rem;
   color: #FFFFFF;
   font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.95rem;
+  font-size: 1rem; /* 16px ensures no unwanted iOS viewport zoom */
   outline: none;
   transition: all 0.2s ease;
 }

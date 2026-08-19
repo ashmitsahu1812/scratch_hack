@@ -220,7 +220,7 @@ export default function RegistrationForm() {
               How many members are registering right now?
             </span>
           </div>
-          <div className="grid grid-cols-3 gap-4 max-w-xl mx-auto">
+          <div className="grid grid-cols-3 gap-2 sm:gap-4 max-w-xl mx-auto">
             {TEAM_SIZES.map(({ size, label: lbl, icon: Icon, desc, color }) => (
               <button
                 key={size}
@@ -231,21 +231,21 @@ export default function RegistrationForm() {
                   setErrors({});
                   setGlobalError('');
                 }}
-                className="relative flex flex-col items-center gap-2 p-4 rounded-md border-2 transition-all duration-200 cursor-pointer"
+                className="relative flex flex-col items-center justify-center gap-1 sm:gap-2 p-2 sm:p-4 rounded-md border-2 transition-all duration-200 cursor-pointer"
                 style={{
                   borderColor: teamSize === size ? color : 'rgba(255,255,255,0.15)',
                   background:  teamSize === size ? `${color}18` : 'rgba(255,255,255,0.04)',
-                  boxShadow:   teamSize === size ? `4px 4px 0 ${color}55` : 'none',
+                  boxShadow:   teamSize === size ? `3px 3px 0 ${color}55` : 'none',
                   transform:   teamSize === size ? 'translate(-2px,-2px)' : 'none',
                 }}
               >
-                <Icon className="w-6 h-6" style={{ color: teamSize === size ? color : 'rgba(255,255,255,0.4)' }} />
-                <div>
-                  <div className="font-heading text-xl" style={{ color: teamSize === size ? color : 'rgba(255,255,255,0.7)' }}>{lbl}</div>
-                  <div className="text-xs text-white/40 font-sans">{desc}</div>
+                <Icon className="w-5 h-5 sm:w-6 sm:h-6" style={{ color: teamSize === size ? color : 'rgba(255,255,255,0.4)' }} />
+                <div className="text-center">
+                  <div className="font-heading text-lg sm:text-xl leading-tight" style={{ color: teamSize === size ? color : 'rgba(255,255,255,0.7)' }}>{lbl}</div>
+                  <div className="text-[10px] sm:text-xs text-white/40 font-sans mt-0.5">{desc}</div>
                 </div>
                 {size === 3 && (
-                  <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-[9px] px-1.5 py-0.5 rounded-sm bg-[#00FFB3] text-[#0A0E1A] font-sans font-bold uppercase tracking-wider whitespace-nowrap">
+                  <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-[8px] sm:text-[9px] px-1 sm:px-1.5 py-0.5 rounded-sm bg-[#00FFB3] text-[#0A0E1A] font-sans font-bold uppercase tracking-wider whitespace-nowrap">
                     Complete Team
                   </span>
                 )}
