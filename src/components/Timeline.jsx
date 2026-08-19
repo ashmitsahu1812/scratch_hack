@@ -65,23 +65,23 @@ const scheduleSteps = [
 
 export default function Timeline() {
   return (
-    <section id="schedule" className="py-20 relative overflow-hidden">
+    <section id="schedule" className="py-16 sm:py-20 relative overflow-hidden">
       {/* Floating 3D Geometric Shapes */}
       <GeoStar 
         color="#FFE500" shadow="#998A00"
-        className="absolute top-20 left-4 sm:left-10 w-12 h-12 sm:w-16 sm:h-16 geo-float opacity-80"
+        className="absolute top-20 left-8 lg:left-14 w-14 h-14 lg:w-16 lg:h-16 geo-float opacity-80 hidden md:block"
       />
       <GeoBox 
         color="#FF5CE8" shadow="#B326A0"
-        className="absolute top-36 right-4 sm:right-12 w-12 h-12 sm:w-14 sm:h-14 geo-float-slow opacity-75"
+        className="absolute top-36 right-8 lg:right-16 w-14 h-14 lg:w-16 lg:h-16 geo-float-slow opacity-75 hidden md:block"
       />
       <GeoDiamond 
         color="#00FFB3" shadow="#008F64"
-        className="absolute bottom-28 left-6 sm:left-14 w-10 h-10 sm:w-12 sm:h-12 geo-float-alt opacity-75"
+        className="absolute bottom-28 left-8 lg:left-14 w-12 h-12 lg:w-14 lg:h-14 geo-float-alt opacity-75 hidden md:block"
       />
       <GeoCylinder 
         color="#A78BFF" shadow="#7A56E6"
-        className="absolute bottom-44 right-6 sm:right-16 w-10 h-14 sm:w-12 sm:h-16 geo-float-slow opacity-70"
+        className="absolute bottom-44 right-8 lg:right-16 w-12 h-16 geo-float-slow opacity-70 hidden md:block"
       />
       <motion.div 
         initial={{ opacity: 0, y: 40 }}

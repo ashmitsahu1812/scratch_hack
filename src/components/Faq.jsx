@@ -56,23 +56,23 @@ export default function Faq() {
   };
 
   return (
-    <section id="faq" className="py-20 relative overflow-hidden">
+    <section id="faq" className="py-16 sm:py-20 relative overflow-hidden">
       {/* Floating 3D Geometric Shapes */}
       <GeoStar 
         color="#FF5CE8" shadow="#B326A0"
-        className="absolute top-16 left-4 sm:left-10 w-12 h-12 sm:w-16 sm:h-16 geo-float opacity-80"
+        className="absolute top-16 left-8 lg:left-14 w-14 h-14 lg:w-16 lg:h-16 geo-float opacity-80 hidden md:block"
       />
       <GeoBox 
         color="#FFE500" shadow="#998A00"
-        className="absolute top-28 right-4 sm:right-12 w-12 h-12 sm:w-14 sm:h-14 geo-float-slow opacity-75"
+        className="absolute top-28 right-8 lg:right-16 w-14 h-14 lg:w-16 lg:h-16 geo-float-slow opacity-75 hidden md:block"
       />
       <GeoDiamond 
         color="#00FFB3" shadow="#008F64"
-        className="absolute bottom-20 left-6 sm:left-14 w-10 h-10 sm:w-12 sm:h-12 geo-float-alt opacity-70"
+        className="absolute bottom-20 left-8 lg:left-14 w-12 h-12 lg:w-14 lg:h-14 geo-float-alt opacity-70 hidden md:block"
       />
       <GeoCylinder 
         color="#FF6B6B" shadow="#CC4444"
-        className="absolute bottom-32 right-6 sm:right-16 w-10 h-14 sm:w-12 sm:h-16 geo-float-slow opacity-75"
+        className="absolute bottom-32 right-8 lg:right-16 w-12 h-16 geo-float-slow opacity-75 hidden md:block"
       />
       <motion.div 
         initial={{ opacity: 0, y: 40 }}
