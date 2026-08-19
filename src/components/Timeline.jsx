@@ -21,7 +21,7 @@ const scheduleSteps = [
   {
     time: 'T + 00:00', blockType: 'motion',
     title: 'Problem Statement Release',
-    subtitle: '⚡ First-come, first-served allocation begins',
+    subtitle: 'First-come, first-served allocation begins',
     desc: 'All 10\u201315 problem statements go live simultaneously. Teams claim one statement through the portal. Once a statement runs out of seats, it is locked.',
     icon: Flag, colorHex: '#00FFB3', textColor: '#0A0E1A'
   },

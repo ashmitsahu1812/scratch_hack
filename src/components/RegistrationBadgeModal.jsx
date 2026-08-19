@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import confetti from 'canvas-confetti';
-import { Award, CheckCircle2, Copy, Download, Share2, X, Sparkles, User, Users, ShieldCheck } from 'lucide-react';
+import { Award, CheckCircle2, X, Users, ShieldCheck } from 'lucide-react';
 import { scratchAudio } from '../lib/soundEffects';
 
 export default function RegistrationBadgeModal({ registrationData, onClose }) {
@@ -17,14 +17,8 @@ export default function RegistrationBadgeModal({ registrationData, onClose }) {
 
   if (!registrationData) return null;
 
-  const { teamName, teamId, members, registeredAt, source } = registrationData;
+  const { teamName, members = [], source } = registrationData;
   const leader = members.find(m => m.role === 'leader') || members[0];
-
-  const handleCopyBadgeId = () => {
-    scratchAudio.playSnap();
-    navigator.clipboard.writeText(teamId);
-    alert(`Registration ID copied to clipboard: ${teamId}`);
-  };
 
   return (
     <div className="modal-overlay">
@@ -88,13 +82,18 @@ export default function RegistrationBadgeModal({ registrationData, onClose }) {
           {/* Team Members List */}
           <div>
             <div className="text-xs text-slate-400 font-sans mb-2 flex items-center gap-1">
-              <Users className="w-3.5 h-3.5 text-[#9966FF]" /> Roster (3/3 Members)
+              <Users className="w-3.5 h-3.5 text-[#9966FF]" /> Roster ({members.length} {members.length === 1 ? 'Member' : 'Members'})
             </div>
             <div className="space-y-1.5">
               {members.map((mem, idx) => (
                 <div key={idx} className="flex items-center justify-between text-xs bg-[#090D16] px-3 py-2 rounded-lg border border-[#232F47]">
-                  <span className="font-medium text-slate-200">
-                    {mem.fullName || mem.full_name} {mem.role === 'leader' ? '👑' : ''}
+                  <span className="font-medium text-slate-200 flex items-center gap-1.5">
+                    {mem.fullName || mem.full_name}
+                    {mem.role === 'leader' && (
+                      <span className="text-[10px] uppercase font-sans font-semibold px-1.5 py-0.5 rounded bg-[#FFE500]/20 text-[#FFE500] border border-[#FFE500]/30">
+                        Leader
+                      </span>
+                    )}
                   </span>
                   <span className="text-slate-400 font-mono">
                     {mem.batch}
@@ -102,19 +101,6 @@ export default function RegistrationBadgeModal({ registrationData, onClose }) {
                 </div>
               ))}
             </div>
-          </div>
-
-          {/* Registration UUID / Badge Barcode style */}
-          <div className="pt-2 border-t border-[#26354F] flex items-center justify-between text-xs font-mono text-slate-400">
-            <div>
-              <span className="text-[#5CB1D6]">ID:</span> {teamId.substring(0, 18)}...
-            </div>
-            <button
-              onClick={handleCopyBadgeId}
-              className="flex items-center gap-1 text-[#FFBF00] hover:underline"
-            >
-              <Copy className="w-3.5 h-3.5" /> Copy ID
-            </button>
           </div>
         </div>
 

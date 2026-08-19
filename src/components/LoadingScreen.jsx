@@ -28,10 +28,12 @@ export default function LoadingScreen({ onComplete }) {
             initial={{ y: -50, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.2 }}
-            className="scratch-block events p-3 w-40 text-center relative z-30 shadow-xl"
+            className="scratch-block events p-3 w-44 text-center relative z-30 shadow-xl flex items-center justify-center gap-1.5"
             style={{ padding: '0.75rem', borderRadius: '4px', borderLeftWidth: '5px' }}
           >
-            <span className="font-heading text-lg text-[#0A0E1A]">WHEN 🏁 CLICKED</span>
+            <span className="font-heading text-lg text-white flex items-center justify-center gap-1">
+              WHEN <span className="text-[#00FFB3] text-xl leading-none">⚑</span> CLICKED
+            </span>
           </motion.div>
           
           {/* Middle block - Motion (Green) */}
@@ -39,10 +41,10 @@ export default function LoadingScreen({ onComplete }) {
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ type: "spring", stiffness: 300, damping: 20, delay: 0.6 }}
-            className="scratch-block motion scratch-notch p-3 w-40 text-center relative z-20 shadow-xl"
+            className="scratch-block motion scratch-notch p-3 w-44 text-center relative z-20 shadow-xl"
             style={{ padding: '0.75rem', borderRadius: '4px', borderLeftWidth: '5px' }}
           >
-            <span className="font-heading text-lg text-[#0A0E1A]">INITIALIZE HACK</span>
+            <span className="font-heading text-lg text-white">INITIALIZE HACK</span>
           </motion.div>
 
           {/* Bottom block - Looks (Pink) */}
@@ -50,7 +52,7 @@ export default function LoadingScreen({ onComplete }) {
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ type: "spring", stiffness: 300, damping: 20, delay: 1.0 }}
-            className="scratch-block looks scratch-notch p-3 w-40 text-center relative z-10 shadow-xl"
+            className="scratch-block looks scratch-notch p-3 w-44 text-center relative z-10 shadow-xl"
             style={{ padding: '0.75rem', borderRadius: '4px', borderLeftWidth: '5px' }}
           >
             <span className="font-heading text-lg text-white">SHOW WEBSITE</span>

@@ -285,7 +285,7 @@ export default function RegistrationForm() {
             <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
               <div className="font-heading text-xl text-[#00FFB3] flex items-center gap-2">
                 <span className="w-3 h-3 rounded-full bg-[#00FFB3]" />
-                {teamSize === 1 ? 'Your Details 👤' : 'Member 1: Team Leader 👑'}
+                {teamSize === 1 ? 'Your Details' : 'Member 1: Team Leader'}
               </div>
               <span className="scratch-tag scratch-tag-motion">Primary Contact</span>
             </div>

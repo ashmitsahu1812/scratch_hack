@@ -1,5 +1,5 @@
 import React from 'react';
-import { Star, MessageSquare, Cpu, Users, Calculator } from 'lucide-react';
+import { Star, MessageSquare, Cpu, Users, Calculator, AlertTriangle, Info } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { scratchAudio } from '../lib/soundEffects';
 
@@ -72,8 +72,9 @@ export default function Judging() {
               ))}
             </div>
 
-            <div className="mt-4 p-3 rounded-sm bg-[#FF6B6B]/10 border border-[#FF6B6B]/30 text-xs text-white/65 font-sans">
-              ⚠️ <strong className="text-white">Important:</strong> Creativity cannot compensate for a non-functional game. Teams failing minimum acceptance criteria may be capped or disqualified regardless of visual quality.
+            <div className="mt-4 p-3 rounded-sm bg-[#FF6B6B]/10 border border-[#FF6B6B]/30 text-xs text-white/65 font-sans flex items-start gap-2">
+              <AlertTriangle className="w-4 h-4 text-[#FF6B6B] shrink-0 mt-0.5" />
+              <span><strong className="text-white">Important:</strong> Creativity cannot compensate for a non-functional game. Teams failing minimum acceptance criteria may be capped or disqualified regardless of visual quality.</span>
             </div>
           </div>
 
@@ -102,8 +103,9 @@ export default function Judging() {
               ))}
             </div>
 
-            <div className="mt-4 p-3 rounded-sm bg-[#A78BFF]/10 border border-[#A78BFF]/30 text-xs text-white/65 font-sans">
-              💡 During Round 2, judges may ask any team member to explain specific scripts, variables or mechanics. If a team cannot explain a substantial portion of its own project, scores may be reduced.
+            <div className="mt-4 p-3 rounded-sm bg-[#A78BFF]/10 border border-[#A78BFF]/30 text-xs text-white/65 font-sans flex items-start gap-2">
+              <Info className="w-4 h-4 text-[#A78BFF] shrink-0 mt-0.5" />
+              <span>During Round 2, judges may ask any team member to explain specific scripts, variables or mechanics. If a team cannot explain a substantial portion of its own project, scores may be reduced.</span>
             </div>
           </div>
         </div>
