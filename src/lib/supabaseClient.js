@@ -33,20 +33,42 @@ export const getSupabaseStatus = () => {
 };
 
 /**
- * Register Team with variable member count (1, 2, or 3 members)
+ * Register Team with 1 row per team (team_name, leader details, member2 details, member3 details)
  * teamSize: 1 = solo, 2 = duo, 3 = trio (default)
  *
- * teams: id, team_name, team_size, registration_type, created_at
- * team_members: id, team_id, full_name, email, batch, phone, role, created_at
+ * Table: team_registrations
  */
 export const registerTeam = async (formData) => {
   const { teamName, leader, member2, member3, teamSize = 3 } = formData;
   const normalizedTeamName = teamName.trim();
+  const registrationType = teamSize === 1 ? 'solo' : teamSize === 2 ? 'duo' : 'trio';
 
-  // Build members list based on teamSize
-  const membersList = [{ ...leader, role: 'leader' }];
-  if (teamSize >= 2 && member2?.email) membersList.push({ ...member2, role: 'member' });
-  if (teamSize >= 3 && member3?.email) membersList.push({ ...member3, role: 'member' });
+  // Build members list for confirmation badge return
+  const membersList = [{
+    role: 'leader',
+    fullName: leader.fullName.trim(),
+    email: leader.email.toLowerCase().trim(),
+    batch: leader.batch.trim(),
+    phone: leader.phone ? leader.phone.trim() : null
+  }];
+
+  if (teamSize >= 2 && member2?.fullName && member2?.email) {
+    membersList.push({
+      role: 'member',
+      fullName: member2.fullName.trim(),
+      email: member2.email.toLowerCase().trim(),
+      batch: member2.batch ? member2.batch.trim() : ''
+    });
+  }
+
+  if (teamSize >= 3 && member3?.fullName && member3?.email) {
+    membersList.push({
+      role: 'member',
+      fullName: member3.fullName.trim(),
+      email: member3.email.toLowerCase().trim(),
+      batch: member3.batch ? member3.batch.trim() : ''
+    });
+  }
 
   // Validate internal duplicates
   const emails = membersList.map(m => m.email.toLowerCase().trim());
@@ -55,15 +77,29 @@ export const registerTeam = async (formData) => {
     throw new Error('Duplicate email addresses detected within your team members!');
   }
 
-  // Registration type label
-  const registrationType = teamSize === 1 ? 'solo' : teamSize === 2 ? 'duo' : 'trio';
+  // 1 Single Flat Row for this Team
+  const teamRow = {
+    team_name: normalizedTeamName,
+    team_size: teamSize,
+    registration_type: registrationType,
+    leader_name: leader.fullName.trim(),
+    leader_email: leader.email.toLowerCase().trim(),
+    leader_batch: leader.batch.trim(),
+    leader_phone: leader.phone ? leader.phone.trim() : null,
+    member2_name: (teamSize >= 2 && member2?.fullName) ? member2.fullName.trim() : null,
+    member2_email: (teamSize >= 2 && member2?.email) ? member2.email.toLowerCase().trim() : null,
+    member2_batch: (teamSize >= 2 && member2?.batch) ? member2.batch.trim() : null,
+    member3_name: (teamSize >= 3 && member3?.fullName) ? member3.fullName.trim() : null,
+    member3_email: (teamSize >= 3 && member3?.email) ? member3.email.toLowerCase().trim() : null,
+    member3_batch: (teamSize >= 3 && member3?.batch) ? member3.batch.trim() : null
+  };
 
   // ── Try Supabase ──
   if (supabase) {
     try {
       // Check team name uniqueness
       const { data: existingTeam, error: teamCheckErr } = await supabase
-        .from('teams')
+        .from('team_registrations')
         .select('id')
         .ilike('team_name', normalizedTeamName)
         .maybeSingle();
@@ -74,52 +110,29 @@ export const registerTeam = async (formData) => {
         throw new Error(`Team name "${normalizedTeamName}" is already taken. Please choose another name.`);
       }
 
-      // Insert Team
-      const { data: teamData, error: teamErr } = await supabase
-        .from('teams')
-        .insert([{ team_name: normalizedTeamName }])
+      // Insert the 1 single row for the team
+      const { data: insertedTeam, error: insertErr } = await supabase
+        .from('team_registrations')
+        .insert([teamRow])
         .select()
         .single();
 
-      if (teamErr) {
-        if (teamErr.code === '23505') throw new Error(`Team name "${normalizedTeamName}" is already registered.`);
-        throw new Error(teamErr.message || 'Failed to create team record in Supabase');
-      }
-
-      const teamId = teamData.id;
-
-      // Insert Members
-      const membersToInsert = membersList.map(m => ({
-        team_id: teamId,
-        full_name: m.fullName.trim(),
-        email: m.email.toLowerCase().trim(),
-        batch: m.batch.trim(),
-        phone: m.phone ? m.phone.trim() : null,
-        role: m.role
-      }));
-
-      const { data: insertedMembers, error: membersErr } = await supabase
-        .from('team_members')
-        .insert(membersToInsert)
-        .select();
-
-      if (membersErr) {
-        await supabase.from('teams').delete().eq('id', teamId);
-        if (membersErr.code === '23505') {
-          throw new Error('One of the member email addresses is already registered in another team!');
+      if (insertErr) {
+        if (insertErr.code === '23505') {
+          throw new Error(`Team name or email is already registered.`);
         }
-        throw new Error(membersErr.message || 'Failed to register team members');
+        throw new Error(insertErr.message || 'Failed to insert team registration record');
       }
 
       return {
         success: true,
         source: 'supabase',
-        teamId: teamData.id,
+        teamId: insertedTeam?.id || 'registered',
         teamName: normalizedTeamName,
         teamSize,
         registrationType,
-        members: insertedMembers,
-        registeredAt: new Date().toISOString()
+        members: membersList,
+        registeredAt: insertedTeam?.created_at || new Date().toISOString()
       };
     } catch (err) {
       console.error('Supabase registration failed:', err);

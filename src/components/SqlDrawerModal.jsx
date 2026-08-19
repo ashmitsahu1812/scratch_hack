@@ -3,46 +3,48 @@ import { Database, Copy, Check, X, Key, Globe, ShieldAlert, Sparkles, Terminal }
 import { getSupabaseStatus, updateSupabaseCredentials, getLocalRegistrationsCount } from '../lib/supabaseClient';
 import { scratchAudio } from '../lib/soundEffects';
 
-const SQL_SCHEMA = `-- Enable UUID extension
-create extension if not exists "uuid-ossp";
+const SQL_SCHEMA = `-- Drop old structures if resetting
+drop view if exists public.team_registrations cascade;
+drop table if exists public.team_members cascade;
+drop table if exists public.teams cascade;
+drop table if exists public.team_registrations cascade;
 
--- Teams Table
-create table public.teams (
-    id uuid default uuid_generate_v4() primary key,
+-- Single Table: 1 Row Per Team
+create table public.team_registrations (
+    id uuid default gen_random_uuid() primary key,
     team_name text not null unique,
+    team_size integer not null default 3,
+    registration_type text not null default 'trio',
+    
+    -- Leader / Member 1
+    leader_name text not null,
+    leader_email text not null,
+    leader_batch text not null,
+    leader_phone text not null,
+    
+    -- Member 2 (Optional)
+    member2_name text null,
+    member2_email text null,
+    member2_batch text null,
+    
+    -- Member 3 (Optional)
+    member3_name text null,
+    member3_email text null,
+    member3_batch text null,
+    
     created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );
-
--- Team Members Table
-create table public.team_members (
-    id uuid default uuid_generate_v4() primary key,
-    team_id uuid references public.teams(id) on delete cascade not null,
-    full_name text not null,
-    email text not null unique,
-    batch text not null,
-    phone text null,
-    role text not null check (role in ('leader', 'member')),
-    created_at timestamp with time zone default timezone('utc'::text, now()) not null
-);
-
--- Ensure case-insensitive uniqueness on emails
-create unique index unique_member_email_idx on public.team_members (lower(trim(email)));
 
 -- Enable Row Level Security (RLS)
-alter table public.teams enable row level security;
-alter table public.team_members enable row level security;
+alter table public.team_registrations enable row level security;
 
--- Policies for public registration insertion
-create policy "Allow public to insert teams" 
-on public.teams for insert 
+-- Policies for public registration insertion and checking
+create policy "Allow public to insert team registrations" 
+on public.team_registrations for insert 
 with check (true);
 
-create policy "Allow public to insert members" 
-on public.team_members for insert 
-with check (true);
-
-create policy "Allow public to read team names" 
-on public.teams for select 
+create policy "Allow public to read team registrations" 
+on public.team_registrations for select 
 using (true);`;
 
 export default function SqlDrawerModal({ isOpen, onClose }) {
