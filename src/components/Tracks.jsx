@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Gamepad2, BookOpen, Film, Bot, Swords, ShieldCheck, Leaf, ArrowUpRight, Lock, Users } from 'lucide-react';
 import { scratchAudio } from '../lib/soundEffects';
+import { GeoBox, GeoStar, GeoCylinder, GeoDiamond } from './GeoShapes';
 
 const exampleProblems = [
   { id: 'PS-01', title: 'Space Defender',     icon: Swords,      color: '#00FFB3', desc: 'Protect a space station from waves of incoming objects. Include movement, scoring and a game-over condition.' },
@@ -26,8 +27,24 @@ export default function Tracks() {
   const visible = showAll ? exampleProblems : exampleProblems.slice(0, 4);
 
   return (
-    <section id="tracks" className="py-20 relative bg-[#1A1DCC]/40 border-t-2 border-b-2 border-white/10">
-      <div className="bg-block bg-block-3 geo-float"></div>
+    <section id="tracks" className="py-20 relative bg-[#1A1DCC]/40 border-t-2 border-b-2 border-white/10 overflow-hidden">
+      {/* Floating 3D Geometric Shapes */}
+      <GeoBox 
+        color="#FFE500" shadow="#998A00"
+        className="absolute top-12 left-4 sm:left-12 w-12 h-12 sm:w-16 sm:h-16 geo-float-slow opacity-80"
+      />
+      <GeoStar 
+        color="#FF5CE8" shadow="#B326A0"
+        className="absolute top-20 right-4 sm:right-14 w-12 h-12 sm:w-14 sm:h-14 geo-float opacity-75"
+      />
+      <GeoCylinder 
+        color="#00FFB3" shadow="#008F64"
+        className="absolute bottom-16 left-6 sm:left-16 w-10 h-14 sm:w-12 sm:h-16 geo-float-alt opacity-70"
+      />
+      <GeoDiamond 
+        color="#FF6B6B" shadow="#CC4444"
+        className="absolute bottom-20 right-6 sm:right-20 w-10 h-10 sm:w-12 sm:h-12 geo-float-slow opacity-75"
+      />
       <motion.div 
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}

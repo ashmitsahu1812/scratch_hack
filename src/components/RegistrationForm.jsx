@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import { registerTeam } from '../lib/supabaseClient';
 import { scratchAudio } from '../lib/soundEffects';
 import RegistrationBadgeModal from './RegistrationBadgeModal';
+import { GeoBox, GeoStar, GeoCylinder, GeoDiamond } from './GeoShapes';
 
 /* ─── Team size config ─── */
 const TEAM_SIZES = [
@@ -172,8 +173,23 @@ export default function RegistrationForm() {
 
   return (
     <section id="register" className="py-20 relative overflow-hidden">
-      <div className="absolute top-10 left-10 w-24 h-24 bg-[#FF5CE8]/10 rounded-md rotate-12 blur-xl pointer-events-none"></div>
-      <div className="absolute bottom-20 right-10 w-32 h-32 bg-[#00FFB3]/10 rounded-md -rotate-12 blur-2xl pointer-events-none"></div>
+      {/* Floating 3D Geometric Shapes */}
+      <GeoStar 
+        color="#FF5CE8" shadow="#B326A0"
+        className="absolute top-16 left-4 sm:left-10 w-12 h-12 sm:w-16 sm:h-16 geo-float opacity-75"
+      />
+      <GeoBox 
+        color="#00FFB3" shadow="#008F64"
+        className="absolute top-28 right-4 sm:right-12 w-12 h-12 sm:w-14 sm:h-14 geo-float-slow opacity-80"
+      />
+      <GeoDiamond 
+        color="#FFE500" shadow="#998A00"
+        className="absolute bottom-24 left-6 sm:left-14 w-10 h-10 sm:w-12 sm:h-12 geo-float-alt opacity-70"
+      />
+      <GeoStar 
+        color="#A78BFF" shadow="#7A56E6"
+        className="absolute bottom-40 right-6 sm:right-16 w-10 h-10 sm:w-14 sm:h-14 geo-float opacity-75"
+      />
 
       <motion.div 
         initial={{ opacity: 0, y: 40 }}

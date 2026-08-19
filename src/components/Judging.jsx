@@ -2,6 +2,7 @@ import React from 'react';
 import { Star, MessageSquare, Cpu, Users, Calculator, AlertTriangle, Info } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { scratchAudio } from '../lib/soundEffects';
+import { GeoBox, GeoStar, GeoCylinder, GeoDiamond } from './GeoShapes';
 
 const round1Rubric = [
   { criterion: 'Basic Game Working',          weight: '40%', color: '#FF6B6B', desc: 'Core gameplay, controls, win/lose state, required mechanics, stability' },
@@ -26,7 +27,24 @@ const tieBreakers = [
 
 export default function Judging() {
   return (
-    <section id="judging" className="py-20 relative bg-[#1A1DCC]/40 border-t-2 border-b-2 border-white/10">
+    <section id="judging" className="py-20 relative bg-[#1A1DCC]/40 border-t-2 border-b-2 border-white/10 overflow-hidden">
+      {/* Floating 3D Geometric Shapes */}
+      <GeoStar 
+        color="#FF5CE8" shadow="#B326A0"
+        className="absolute top-12 left-4 sm:left-12 w-12 h-12 sm:w-16 sm:h-16 geo-float opacity-80"
+      />
+      <GeoBox 
+        color="#00FFB3" shadow="#008F64"
+        className="absolute top-24 right-4 sm:right-14 w-12 h-12 sm:w-14 sm:h-14 geo-float-slow opacity-75"
+      />
+      <GeoDiamond 
+        color="#FFE500" shadow="#998A00"
+        className="absolute bottom-16 left-6 sm:left-14 w-10 h-10 sm:w-12 sm:h-12 geo-float-alt opacity-70"
+      />
+      <GeoCylinder 
+        color="#A78BFF" shadow="#7A56E6"
+        className="absolute bottom-28 right-6 sm:right-16 w-10 h-14 sm:w-12 sm:h-16 geo-float-slow opacity-75"
+      />
       <motion.div 
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}

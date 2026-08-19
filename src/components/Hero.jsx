@@ -2,45 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Flag, Play, Sparkles, Trophy, Users, Clock, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { scratchAudio } from '../lib/soundEffects';
-
-/* ── Floating 3D Geometric Shapes ── */
-function GeoBox({ color, shadow, style, className }) {
-  return (
-    <div className={className} style={style}>
-      <div style={{
-        width: '100%', height: '100%',
-        background: color,
-        border: '3px solid rgba(0,0,0,0.25)',
-        boxShadow: `-8px 8px 0 ${shadow}`,
-        transform: 'perspective(300px) rotateX(18deg) rotateY(-28deg)',
-      }} />
-    </div>
-  );
-}
-
-function GeoCylinder({ color, shadow, style, className }) {
-  return (
-    <div className={className} style={{ ...style }}>
-      <div style={{
-        width: '100%', height: '100%',
-        background: color,
-        borderRadius: '50% 50% 50% 50% / 18% 18% 82% 82%',
-        border: '3px solid rgba(0,0,0,0.2)',
-        boxShadow: `0 10px 0 ${shadow}`,
-      }} />
-    </div>
-  );
-}
-
-function GeoStar({ color, className }) {
-  return (
-    <div className={className} style={{
-      width: '60px', height: '60px',
-      background: color,
-      clipPath: 'polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)',
-    }} />
-  );
-}
+import { GeoBox, GeoCylinder, GeoStar, GeoDiamond } from './GeoShapes';
 
 export default function Hero() {
   const [timeLeft, setTimeLeft] = useState({ days: 14, hours: 8, minutes: 42, seconds: 15 });
@@ -62,27 +24,30 @@ export default function Hero() {
     <section id="overview" className="relative pt-12 pb-24 overflow-hidden">
 
       {/* ── Floating Geometric Decorations ── */}
-      {/* Top-right yellow 3D box */}
+      <GeoStar
+        color="#FF5CE8" shadow="#B326A0"
+        className="absolute top-12 left-4 sm:left-12 w-12 h-12 sm:w-16 sm:h-16 geo-float-slow opacity-80"
+      />
       <GeoBox
-        color="#FFE500" shadow="#CCB800"
-        className="absolute top-10 right-12 w-16 h-16 geo-float pointer-events-none hidden lg:block"
+        color="#00FFB3" shadow="#008F64"
+        className="absolute top-16 right-4 sm:right-14 w-12 h-12 sm:w-16 sm:h-16 geo-float opacity-80"
       />
-      {/* Top-left pink cylinder */}
-      <GeoCylinder
-        color="#FF5CE8" shadow="#CC46BC"
-        className="absolute top-24 left-8 w-12 h-16 geo-float-alt pointer-events-none hidden lg:block"
-      />
-      {/* Bottom-left green 3D box */}
-      <GeoBox
-        color="#00FFB3" shadow="#00CC8F"
-        className="absolute bottom-16 left-16 w-14 h-14 geo-float-slow pointer-events-none hidden lg:block"
-      />
-      {/* Bottom-right coral cylinder */}
       <GeoCylinder
         color="#FF6B6B" shadow="#CC4444"
-        className="absolute bottom-24 right-24 w-10 h-14 geo-float pointer-events-none hidden lg:block"
+        className="absolute bottom-20 left-6 sm:left-16 w-10 h-14 sm:w-12 sm:h-16 geo-float-alt opacity-75"
       />
-      {/* Mid-left starburst */}
+      <GeoDiamond
+        color="#FFE500" shadow="#CCB800"
+        className="absolute bottom-28 right-6 sm:right-20 w-10 h-10 sm:w-14 sm:h-14 geo-float-slow opacity-80"
+      />
+      <GeoStar
+        color="#A78BFF" shadow="#7A56E6"
+        className="absolute top-1/2 left-2 sm:left-8 w-10 h-10 geo-float opacity-60 hidden md:block"
+      />
+      <GeoBox
+        color="#FFE500" shadow="#998A00"
+        className="absolute top-1/2 right-3 sm:right-8 w-12 h-12 geo-float-alt opacity-70 hidden md:block"
+      />
       <GeoStar
         color="#FF5CE8"
         className="absolute top-1/2 left-4 geo-float-alt pointer-events-none hidden xl:block opacity-80"

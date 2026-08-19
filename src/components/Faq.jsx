@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ChevronDown, ChevronUp, Mail } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { scratchAudio } from '../lib/soundEffects';
+import { GeoBox, GeoStar, GeoCylinder, GeoDiamond } from './GeoShapes';
 
 const faqs = [
   {
@@ -55,7 +56,24 @@ export default function Faq() {
   };
 
   return (
-    <section id="faq" className="py-20 relative">
+    <section id="faq" className="py-20 relative overflow-hidden">
+      {/* Floating 3D Geometric Shapes */}
+      <GeoStar 
+        color="#FF5CE8" shadow="#B326A0"
+        className="absolute top-16 left-4 sm:left-10 w-12 h-12 sm:w-16 sm:h-16 geo-float opacity-80"
+      />
+      <GeoBox 
+        color="#FFE500" shadow="#998A00"
+        className="absolute top-28 right-4 sm:right-12 w-12 h-12 sm:w-14 sm:h-14 geo-float-slow opacity-75"
+      />
+      <GeoDiamond 
+        color="#00FFB3" shadow="#008F64"
+        className="absolute bottom-20 left-6 sm:left-14 w-10 h-10 sm:w-12 sm:h-12 geo-float-alt opacity-70"
+      />
+      <GeoCylinder 
+        color="#FF6B6B" shadow="#CC4444"
+        className="absolute bottom-32 right-6 sm:right-16 w-10 h-14 sm:w-12 sm:h-16 geo-float-slow opacity-75"
+      />
       <motion.div 
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}

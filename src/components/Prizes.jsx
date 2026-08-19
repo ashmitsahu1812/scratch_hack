@@ -2,6 +2,7 @@ import React from 'react';
 import { Trophy, Medal, Crown, Sparkles, Award, CheckCircle2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { scratchAudio } from '../lib/soundEffects';
+import { GeoBox, GeoStar, GeoCylinder, GeoDiamond } from './GeoShapes';
 
 const prizeTiers = [
   {
@@ -36,7 +37,24 @@ const prizeTiers = [
 
 export default function Prizes() {
   return (
-    <section id="prizes" className="py-20 relative bg-[#1A1DCC]/40 border-t-2 border-b-2 border-white/10">
+    <section id="prizes" className="py-20 relative bg-[#1A1DCC]/40 border-t-2 border-b-2 border-white/10 overflow-hidden">
+      {/* Floating 3D Geometric Shapes */}
+      <GeoStar 
+        color="#FFE500" shadow="#998A00"
+        className="absolute top-10 left-4 sm:left-10 w-14 h-14 sm:w-16 sm:h-16 geo-float opacity-85"
+      />
+      <GeoDiamond 
+        color="#FF5CE8" shadow="#B326A0"
+        className="absolute top-16 right-4 sm:right-12 w-12 h-12 sm:w-14 sm:h-14 geo-float-slow opacity-80"
+      />
+      <GeoBox 
+        color="#00FFB3" shadow="#008F64"
+        className="absolute bottom-12 left-6 sm:left-14 w-12 h-12 sm:w-14 sm:h-14 geo-float-alt opacity-75"
+      />
+      <GeoCylinder 
+        color="#FF6B6B" shadow="#CC4444"
+        className="absolute bottom-16 right-6 sm:right-16 w-10 h-14 sm:w-12 sm:h-16 geo-float-slow opacity-75"
+      />
       <motion.div 
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
