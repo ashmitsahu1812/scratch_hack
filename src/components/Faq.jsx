@@ -7,7 +7,7 @@ import { GeoBox, GeoStar, GeoCylinder, GeoDiamond } from './GeoShapes';
 const faqs = [
   {
     q: "Who can participate?",
-    a: "Any student! Teams must have a minimum of 2 and a maximum of 3 members. Each participant may belong to only one team. All skill levels are welcome — from beginners to experienced game developers."
+    a: "Any student! Teams must have exactly 3 members. Each participant may belong to only one team. All skill levels are welcome — from beginners to experienced game developers."
   },
   {
     q: "What platform must I use?",

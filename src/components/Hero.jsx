@@ -188,7 +188,7 @@ export default function Hero() {
           {[
             { icon: Clock,   color: '#00FFB3', value: '4 Hours',     sub: 'Round 1 — Build & Submit' },
             { icon: Clock,   color: '#FF5CE8', value: '2 Hours',     sub: 'Round 2 — Present & Defend' },
-            { icon: Users,   color: '#FFE500', value: '2–3 Members', sub: 'Per Team' },
+            { icon: Users,   color: '#FFE500', value: '3 Members',   sub: 'Per Team' },
             { icon: Zap,     color: '#A78BFF', value: '10–15',       sub: 'Problem Statements' },
           ].map(({ icon: Icon, color, value, sub }) => (
             <div key={sub} className="bg-white/5 border border-white/15 p-4 rounded-md backdrop-blur-sm hover:bg-white/10 transition-all">

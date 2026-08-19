@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import {
-  Users, Sparkles, AlertCircle, Loader2,
-  UserRound, UsersRound, AlertTriangle
+  Users, Sparkles, AlertCircle, Loader2, UsersRound
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { registerTeam } from '../lib/supabaseClient';
@@ -9,27 +8,20 @@ import { scratchAudio } from '../lib/soundEffects';
 import RegistrationBadgeModal from './RegistrationBadgeModal';
 import { GeoBox, GeoStar, GeoCylinder, GeoDiamond } from './GeoShapes';
 
-/* ─── Team size config ─── */
-const TEAM_SIZES = [
-  { size: 1, label: 'Solo',  icon: UserRound,   desc: '1 member',  color: '#FFE500' },
-  { size: 2, label: 'Duo',   icon: Users,       desc: '2 members', color: '#FF5CE8' },
-  { size: 3, label: 'Trio',  icon: UsersRound,  desc: '3 members', color: '#00FFB3' },
-];
-
 const EMPTY_MEMBER = { fullName: '', email: '', batch: '' };
 
 export default function RegistrationForm() {
-  const [teamSize, setTeamSize]   = useState(3);
-  const [formData, setFormData]   = useState({
+  const teamSize = 3;
+  const [formData, setFormData] = useState({
     teamName: '',
     leader:  { fullName: '', email: '', batch: '', phone: '' },
     member2: { ...EMPTY_MEMBER },
     member3: { ...EMPTY_MEMBER },
   });
-  const [errors, setErrors]               = useState({});
-  const [isSubmitting, setIsSubmitting]   = useState(false);
-  const [isSnapping, setIsSnapping]       = useState(false);
-  const [globalError, setGlobalError]     = useState('');
+  const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSnapping, setIsSnapping] = useState(false);
+  const [globalError, setGlobalError] = useState('');
   const [confirmedRegistration, setConfirmedRegistration] = useState(null);
 
   /* ── Real-time per-field duplicate email ── */
@@ -65,11 +57,12 @@ export default function RegistrationForm() {
   const validate = () => {
     const e = {};
     const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const phoneRe  = /^[0-9]{10}$/;
+    const phoneRe = /^[0-9]{10}$/;
 
-    if (!formData.teamName.trim())      e.teamName = 'Team name is required.';
+    if (!formData.teamName.trim()) e.teamName = 'Team name is required.';
     else if (formData.teamName.trim().length < 2) e.teamName = 'Minimum 2 characters.';
 
+    // Member 1 (Leader)
     if (!formData.leader.fullName.trim()) e.leaderFullName = 'Full name is required.';
     if (!formData.leader.email.trim())    e.leaderEmail    = 'Email is required.';
     else if (!emailRe.test(formData.leader.email.trim())) e.leaderEmail = 'Enter a valid email address.';
@@ -77,23 +70,23 @@ export default function RegistrationForm() {
     if (!formData.leader.phone.trim())    e.leaderPhone    = 'Mobile number is required.';
     else if (!phoneRe.test(formData.leader.phone.trim().replace(/\D/g, ''))) e.leaderPhone = 'Must be exactly 10 digits.';
 
-    if (teamSize >= 2) {
-      if (!formData.member2.fullName.trim()) e.member2FullName = 'Full name is required.';
-      if (!formData.member2.email.trim())    e.member2Email    = 'Email is required.';
-      else if (!emailRe.test(formData.member2.email.trim())) e.member2Email = 'Enter a valid email.';
-      if (!formData.member2.batch.trim())    e.member2Batch    = 'Batch name is required.';
-    }
-    if (teamSize >= 3) {
-      if (!formData.member3.fullName.trim()) e.member3FullName = 'Full name is required.';
-      if (!formData.member3.email.trim())    e.member3Email    = 'Email is required.';
-      else if (!emailRe.test(formData.member3.email.trim())) e.member3Email = 'Enter a valid email.';
-      if (!formData.member3.batch.trim())    e.member3Batch    = 'Batch name is required.';
-    }
+    // Member 2
+    if (!formData.member2.fullName.trim()) e.member2FullName = 'Full name is required.';
+    if (!formData.member2.email.trim())    e.member2Email    = 'Email is required.';
+    else if (!emailRe.test(formData.member2.email.trim())) e.member2Email = 'Enter a valid email.';
+    if (!formData.member2.batch.trim())    e.member2Batch    = 'Batch name is required.';
 
+    // Member 3
+    if (!formData.member3.fullName.trim()) e.member3FullName = 'Full name is required.';
+    if (!formData.member3.email.trim())    e.member3Email    = 'Email is required.';
+    else if (!emailRe.test(formData.member3.email.trim())) e.member3Email = 'Enter a valid email.';
+    if (!formData.member3.batch.trim())    e.member3Batch    = 'Batch name is required.';
+
+    // Check duplicate emails within team
     const activeEmails = [
       formData.leader.email.toLowerCase().trim(),
-      ...(teamSize >= 2 ? [formData.member2.email.toLowerCase().trim()] : []),
-      ...(teamSize >= 3 ? [formData.member3.email.toLowerCase().trim()] : []),
+      formData.member2.email.toLowerCase().trim(),
+      formData.member3.email.toLowerCase().trim()
     ].filter(Boolean);
     const dup = activeEmails.find((em, i) => activeEmails.indexOf(em) !== i);
     if (dup) e.duplicateEmail = `"${dup}" appears more than once — every member must have a unique email.`;
@@ -116,7 +109,7 @@ export default function RegistrationForm() {
     setTimeout(async () => {
       setIsSubmitting(true);
       try {
-        const result = await registerTeam({ ...formData, teamSize });
+        const result = await registerTeam({ ...formData, teamSize: 3 });
         setIsSubmitting(false); setIsSnapping(false);
         setConfirmedRegistration(result);
       } catch (err) {
@@ -127,68 +120,69 @@ export default function RegistrationForm() {
     }, 600);
   };
 
-  /* ── Shared style helpers ── */
   const label = 'block text-xs font-sans font-semibold text-white/55 uppercase tracking-wider mb-1.5';
-  const err   = (msg) => msg ? (
+  const err = (msg) => msg ? (
     <p className="flex items-center gap-1 text-xs text-[#FF6B6B] mt-1.5 font-sans">
       <AlertCircle className="w-3.5 h-3.5 shrink-0" />{msg}
     </p>
   ) : null;
 
-  /* ── Text input (no icon inside) ── */
-  const renderField = ({ section, field, type = 'text', placeholder, errorKey, maxLen }) => (
-    <div>
-      <input
-        type={type}
-        maxLength={maxLen}
-        value={section === 'teamName' ? formData.teamName : formData[section][field]}
-        onChange={e => handle(section, field, e.target.value)}
-        placeholder={placeholder}
-        className={`scratch-input ${errors[errorKey] ? 'error' : ''}`}
-      />
-      {err(errors[errorKey])}
-    </div>
-  );
+  const renderField = ({ section, field, type = "text", placeholder, errorKey, maxLen }) => {
+    const isTeam = section === "teamName";
+    const val = isTeam ? formData.teamName : formData[section][field];
+    const isErr = !!errors[errorKey];
 
-  /* ── Email field with real-time dup detection ── */
+    return (
+      <div>
+        <input
+          type={type}
+          maxLength={maxLen}
+          value={val}
+          placeholder={placeholder}
+          onChange={(e) => handle(section, field, e.target.value)}
+          className={`scratch-input w-full ${isErr ? 'scratch-input-error' : ''}`}
+        />
+        {err(errors[errorKey])}
+      </div>
+    );
+  };
+
   const renderEmailField = ({ section, errorKey, placeholder }) => {
-    const dupErr = getDuplicateEmail(section, formData[section]?.email || '');
-    const valErr = errors[errorKey];
+    const val = formData[section].email;
+    const dupWarning = getDuplicateEmail(section, val);
+    const hasError = !!errors[errorKey] || !!dupWarning;
+
     return (
       <div>
         <input
           type="email"
-          value={formData[section].email}
-          onChange={e => handle(section, 'email', e.target.value)}
+          value={val}
           placeholder={placeholder}
-          className={`scratch-input ${(dupErr || valErr) ? 'error' : ''}`}
+          onChange={(e) => handle(section, 'email', e.target.value)}
+          className={`scratch-input w-full ${hasError ? 'scratch-input-error' : ''}`}
         />
-        {dupErr
-          ? <p className="flex items-center gap-1 text-xs text-[#FF6B6B] mt-1.5 font-sans"><AlertCircle className="w-3.5 h-3.5 shrink-0" />{dupErr}</p>
-          : err(valErr)
-        }
+        {err(errors[errorKey] || dupWarning)}
       </div>
     );
   };
 
   return (
-    <section id="register" className="py-20 relative overflow-hidden">
-      {/* Floating 3D Geometric Shapes */}
-      <GeoStar 
-        color="#FF5CE8" shadow="#B326A0"
-        className="absolute top-16 left-4 sm:left-10 w-12 h-12 sm:w-16 sm:h-16 geo-float opacity-75"
-      />
+    <section id="register" className="py-20 relative border-t-2 border-white/10 overflow-hidden">
       <GeoBox 
         color="#00FFB3" shadow="#008F64"
-        className="absolute top-28 right-4 sm:right-12 w-12 h-12 sm:w-14 sm:h-14 geo-float-slow opacity-80"
-      />
-      <GeoDiamond 
-        color="#FFE500" shadow="#998A00"
-        className="absolute bottom-24 left-6 sm:left-14 w-10 h-10 sm:w-12 sm:h-12 geo-float-alt opacity-70"
+        className="absolute top-12 left-4 sm:left-12 w-14 h-14 sm:w-16 sm:h-16 geo-float opacity-80"
       />
       <GeoStar 
-        color="#A78BFF" shadow="#7A56E6"
-        className="absolute bottom-40 right-6 sm:right-16 w-10 h-10 sm:w-14 sm:h-14 geo-float opacity-75"
+        color="#FFE500" shadow="#998A00"
+        className="absolute top-20 right-4 sm:right-14 w-12 h-12 sm:w-14 sm:h-14 geo-float-slow opacity-85"
+      />
+      <GeoDiamond 
+        color="#FF5CE8" shadow="#B326A0"
+        className="absolute bottom-16 left-6 sm:left-16 w-12 h-12 sm:w-14 sm:h-14 geo-float-alt opacity-75"
+      />
+      <GeoCylinder 
+        color="#A78BFF" shadow="#7352D9"
+        className="absolute bottom-12 right-6 sm:right-16 w-10 h-14 sm:w-12 sm:h-16 geo-float-slow opacity-80"
       />
 
       <motion.div 
@@ -198,8 +192,7 @@ export default function RegistrationForm() {
         transition={{ duration: 0.6 }}
         className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
       >
-        {/* Header */}
-        <div className="text-center mb-10">
+        <div className="text-center mb-8">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 mb-3 bg-[#A78BFF]/20 text-[#A78BFF] border border-[#A78BFF]/40 rounded-sm font-sans text-sm font-semibold uppercase tracking-wider">
             <Users className="w-4 h-4" /> Team Registration Block
           </div>
@@ -207,59 +200,13 @@ export default function RegistrationForm() {
           <p className="text-white/55 mt-2 text-sm sm:text-base font-sans">
             Complete your team details to lock in your hackathon spot.
           </p>
-        </div>
 
-        {/* ── Team Size Selector ── */}
-        <div className="mb-8">
-          <div className="text-center mb-4">
-            <span className="text-xs font-sans font-semibold text-white/45 uppercase tracking-widest">
-              How many members are in your team?
-            </span>
-          </div>
-          <div className="grid grid-cols-3 gap-4 max-w-xl mx-auto">
-            {TEAM_SIZES.map(({ size, label: lbl, icon: Icon, desc, color }) => (
-              <button
-                key={size} type="button"
-                onClick={() => { scratchAudio.playSnap(); setTeamSize(size); setErrors({}); setGlobalError(''); }}
-                className="relative flex flex-col items-center gap-2 p-4 rounded-md border-2 transition-all duration-200 cursor-pointer"
-                style={{
-                  borderColor: teamSize === size ? color : 'rgba(255,255,255,0.15)',
-                  background:  teamSize === size ? `${color}18` : 'rgba(255,255,255,0.04)',
-                  boxShadow:   teamSize === size ? `4px 4px 0 ${color}55` : 'none',
-                  transform:   teamSize === size ? 'translate(-2px,-2px)' : 'none',
-                }}
-              >
-                <Icon className="w-6 h-6" style={{ color: teamSize === size ? color : 'rgba(255,255,255,0.4)' }} />
-                <div>
-                  <div className="font-heading text-xl" style={{ color: teamSize === size ? color : 'rgba(255,255,255,0.7)' }}>{lbl}</div>
-                  <div className="text-xs text-white/40 font-sans">{desc}</div>
-                </div>
-                {size === 3 && (
-                  <span className="absolute -top-2.5 left-1/2 -translate-x-1/2 text-[9px] px-1.5 py-0.5 rounded-sm bg-[#00FFB3] text-[#0A0E1A] font-sans font-bold uppercase tracking-wider whitespace-nowrap">
-                    Recommended
-                  </span>
-                )}
-              </button>
-            ))}
+          <div className="mt-4 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FFE500]/15 border border-[#FFE500]/40 text-[#FFE500] text-xs sm:text-sm font-sans font-bold">
+            <UsersRound className="w-4 h-4" />
+            <span>Team Requirement: Exactly 3 Members Per Team</span>
           </div>
         </div>
 
-        {/* ── Solo/Duo Disclaimer (valid but optional note) ── */}
-        {(teamSize === 1 || teamSize === 2) && (
-          <div className="mb-6 p-4 rounded-md bg-[#FFE500]/10 border-2 border-[#FFE500]/40 flex items-start gap-3 snap-anim">
-            <AlertTriangle className="w-5 h-5 text-[#FFE500] shrink-0 mt-0.5" />
-            <div>
-              <div className="font-heading text-lg text-[#FFE500]">Solo/Duo Notice</div>
-              <p className="text-sm text-white/70 font-sans mt-1 leading-relaxed">
-                {teamSize === 1 ? 'Solo' : 'Duo'} participation is fully valid and allowed.
-                If you'd like to find {teamSize === 1 ? 'a team' : 'a 3rd member'}, contact <span className="text-[#FFE500]">NST SDC</span> organisers
-                who can try to connect you with other participants looking for a team.
-              </p>
-            </div>
-          </div>
-        )}
-
-        {/* ── Global Error ── */}
         {(globalError || errors.duplicateEmail) && (
           <div className="mb-6 p-4 rounded-md bg-[#FF6B6B]/15 border-2 border-[#FF6B6B]/50 text-white flex items-start gap-3 snap-anim">
             <AlertCircle className="w-5 h-5 text-[#FF6B6B] shrink-0 mt-0.5" />
@@ -274,7 +221,6 @@ export default function RegistrationForm() {
           </div>
         )}
 
-        {/* ── Form ── */}
         <motion.form 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -282,8 +228,6 @@ export default function RegistrationForm() {
           onSubmit={handleSubmit} 
           className={`space-y-8 ${isSnapping ? 'snap-anim' : ''}`}
         >
-
-          {/* BLOCK 1 — Team Name */}
           <div className="scratch-block events scratch-notch">
             <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
               <div className="font-heading text-xl text-[#FFE500] flex items-center gap-2">
@@ -296,12 +240,11 @@ export default function RegistrationForm() {
             {renderField({ section: "teamName", field: "teamName", placeholder: "Team Name", errorKey: "teamName" })}
           </div>
 
-          {/* BLOCK 2 — Leader */}
           <div className="scratch-block motion scratch-notch">
             <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
               <div className="font-heading text-xl text-[#00FFB3] flex items-center gap-2">
                 <span className="w-3 h-3 rounded-full bg-[#00FFB3]" />
-                {teamSize === 1 ? 'Your Details' : 'Member 1: Team Leader'}
+                Member 1: Team Leader
               </div>
               <span className="scratch-tag scratch-tag-motion">Primary Contact</span>
             </div>
@@ -325,61 +268,54 @@ export default function RegistrationForm() {
             </div>
           </div>
 
-          {/* BLOCK 3 — Member 2 */}
-          {teamSize >= 2 && (
-            <div className="scratch-block looks scratch-notch">
-              <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
-                <div className="font-heading text-xl text-[#FF5CE8] flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-full bg-[#FF5CE8]" />
-                  Member 2 Details
-                </div>
-                <span className="scratch-tag scratch-tag-looks">Team Member</span>
+          <div className="scratch-block looks scratch-notch">
+            <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
+              <div className="font-heading text-xl text-[#FF5CE8] flex items-center gap-2">
+                <span className="w-3 h-3 rounded-full bg-[#FF5CE8]" />
+                Member 2 Details
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className={label}>Full Name <span className="text-[#FF6B6B]">*</span></label>
-                  {renderField({ section: "member2", field: "fullName", placeholder: "Full Name", errorKey: "member2FullName" })}
-                </div>
-                <div>
-                  <label className={label}>Email Address <span className="text-[#FF6B6B]">*</span></label>
-                  {renderEmailField({ section: "member2", errorKey: "member2Email", placeholder: "Email Address" })}
-                </div>
-                <div className="sm:col-span-2">
-                  <label className={label}>Batch <span className="text-[#FF6B6B]">*</span></label>
-                  {renderField({ section: "member2", field: "batch", placeholder: "Batch", errorKey: "member2Batch" })}
-                </div>
+              <span className="scratch-tag scratch-tag-looks">Team Member</span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className={label}>Full Name <span className="text-[#FF6B6B]">*</span></label>
+                {renderField({ section: "member2", field: "fullName", placeholder: "Full Name", errorKey: "member2FullName" })}
+              </div>
+              <div>
+                <label className={label}>Email Address <span className="text-[#FF6B6B]">*</span></label>
+                {renderEmailField({ section: "member2", errorKey: "member2Email", placeholder: "Email Address" })}
+              </div>
+              <div className="sm:col-span-2">
+                <label className={label}>Batch <span className="text-[#FF6B6B]">*</span></label>
+                {renderField({ section: "member2", field: "batch", placeholder: "Batch", errorKey: "member2Batch" })}
               </div>
             </div>
-          )}
+          </div>
 
-          {/* BLOCK 4 — Member 3 */}
-          {teamSize >= 3 && (
-            <div className="scratch-block sensing scratch-notch">
-              <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
-                <div className="font-heading text-xl text-[#A78BFF] flex items-center gap-2">
-                  <span className="w-3 h-3 rounded-full bg-[#A78BFF]" />
-                  Member 3 Details
-                </div>
-                <span className="scratch-tag scratch-tag-sensing">Team Member</span>
+          <div className="scratch-block sensing scratch-notch">
+            <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
+              <div className="font-heading text-xl text-[#A78BFF] flex items-center gap-2">
+                <span className="w-3 h-3 rounded-full bg-[#A78BFF]" />
+                Member 3 Details
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div>
-                  <label className={label}>Full Name <span className="text-[#FF6B6B]">*</span></label>
-                  {renderField({ section: "member3", field: "fullName", placeholder: "Full Name", errorKey: "member3FullName" })}
-                </div>
-                <div>
-                  <label className={label}>Email Address <span className="text-[#FF6B6B]">*</span></label>
-                  {renderEmailField({ section: "member3", errorKey: "member3Email", placeholder: "Email Address" })}
-                </div>
-                <div className="sm:col-span-2">
-                  <label className={label}>Batch <span className="text-[#FF6B6B]">*</span></label>
-                  {renderField({ section: "member3", field: "batch", placeholder: "Batch", errorKey: "member3Batch" })}
-                </div>
+              <span className="scratch-tag scratch-tag-sensing">Team Member</span>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className={label}>Full Name <span className="text-[#FF6B6B]">*</span></label>
+                {renderField({ section: "member3", field: "fullName", placeholder: "Full Name", errorKey: "member3FullName" })}
+              </div>
+              <div>
+                <label className={label}>Email Address <span className="text-[#FF6B6B]">*</span></label>
+                {renderEmailField({ section: "member3", errorKey: "member3Email", placeholder: "Email Address" })}
+              </div>
+              <div className="sm:col-span-2">
+                <label className={label}>Batch <span className="text-[#FF6B6B]">*</span></label>
+                {renderField({ section: "member3", field: "batch", placeholder: "Batch", errorKey: "member3Batch" })}
               </div>
             </div>
-          )}
+          </div>
 
-          {/* Submit */}
           <div className="text-center pt-2">
             <button
               type="submit" disabled={isSubmitting}
@@ -387,14 +323,13 @@ export default function RegistrationForm() {
             >
               {isSubmitting
                 ? <><Loader2 className="w-6 h-6 animate-spin" /> Compiling &amp; Snapping…</>
-                : <><Sparkles className="w-6 h-6" /> Snap &amp; Register {teamSize === 1 ? 'Solo' : teamSize === 2 ? 'Duo' : 'Team'}</>
+                : <><Sparkles className="w-6 h-6" /> Snap &amp; Register Team</>
               }
             </button>
             <div className="text-xs text-white/30 mt-3 font-code">
               Hosted by NST SDC • Real-time duplicate email detection active
             </div>
           </div>
-
         </motion.form>
 
         {confirmedRegistration && (
