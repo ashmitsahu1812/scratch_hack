@@ -44,7 +44,7 @@ export default function Navbar() {
                     '26
                   </span>
                 </div>
-                <div className="text-[9px] sm:text-[10px] text-white/40 font-sans leading-none">Hosted by <span className="text-white/70 font-semibold">NST SDC</span></div>
+                <div className="text-[9px] sm:text-[10px] text-white/40 font-sans leading-none">Hosted by <span className="text-white/70 font-semibold">NST SDC X REY</span></div>
               </div>
             </a>
 
@@ -82,7 +82,7 @@ export default function Navbar() {
             <a href="#register" className="text-[#FFE500] hover:text-white transition-colors flex items-center gap-1">
               <Sparkles className="w-3.5 h-3.5" /> Register
             </a>
-            <a href="#tracks"   className="text-white/70 hover:text-white transition-colors">Problems</a>
+            <a href="#tracks"   className="text-white/70 hover:text-white transition-colors">Themes</a>
             <a href="#schedule" className="text-white/70 hover:text-white transition-colors">Schedule</a>
             <a href="#judging"  className="text-white/70 hover:text-white transition-colors">Judging</a>
             <a href="#prizes"   className="text-white/70 hover:text-white transition-colors">Prizes</a>
@@ -128,7 +128,7 @@ export default function Navbar() {
           {[
             { href: '#overview', label: 'Overview' },
             { href: '#register', label: 'Register Now' },
-            { href: '#tracks',   label: 'Problem Statements' },
+            { href: '#tracks',   label: 'Themes' },
             { href: '#schedule', label: 'Schedule' },
             { href: '#judging',  label: 'Judging Criteria' },
             { href: '#prizes',   label: 'Prizes & Perks' },

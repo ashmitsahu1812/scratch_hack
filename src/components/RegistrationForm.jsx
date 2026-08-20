@@ -266,7 +266,7 @@ export default function RegistrationForm() {
                 </span>
               </div>
               <p className="text-xs sm:text-sm text-slate-200 font-sans mt-1 leading-relaxed">
-                {teamSize === 1 ? 'Solo' : 'Duo'} registration is fully allowed! On the event day, <strong className="text-[#FFE500]">NST SDC organisers will club you with other participants</strong> who do not have a 3rd member to form a complete 3-member team before hacking begins.
+                {teamSize === 1 ? 'Solo' : 'Duo'} registration is fully allowed! On the event day, <strong className="text-[#FFE500]">NST SDC X REY organisers will club you with other participants</strong> who do not have a 3rd member to form a complete 3-member team before hacking begins.
               </p>
             </div>
           </div>
@@ -396,7 +396,7 @@ export default function RegistrationForm() {
               }
             </button>
             <div className="text-[11px] sm:text-xs text-white/40 mt-3 font-sans">
-              Hosted by <strong className="text-white/60">NST SDC</strong> • Real-time duplicate email validation active
+              Hosted by <strong className="text-white/60">NST SDC X REY</strong> • Real-time duplicate email validation active
             </div>
           </div>
         </motion.form>

@@ -107,7 +107,7 @@ export default function RegistrationBadgeModal({ registrationData, onClose }) {
         {/* WhatsApp Community Invite Action */}
         <div className="mt-5 p-4 rounded-xl bg-[#25D366]/10 border border-[#25D366]/30 text-center space-y-3">
           <div className="text-xs text-white/80 font-sans">
-            <span className="text-[#25D366] font-semibold">Important:</span> Join the official WhatsApp group for live problem statements, mentor assistance, and event announcements.
+            <span className="text-[#25D366] font-semibold">Important:</span> Join the official WhatsApp group for live themes, mentor assistance, and event announcements.
           </div>
           <a
             href="https://chat.whatsapp.com/LEySMhQIEZs1Z3ApsCBxek?s=sw&p=i&ilr=2"

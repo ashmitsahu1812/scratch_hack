@@ -53,8 +53,8 @@ export default function App() {
                 </div>
                 <div>
                   <div className="text-xs font-sans font-semibold text-white/40 uppercase tracking-widest mb-0.5">Proudly Hosted By</div>
-                  <div className="font-heading text-2xl text-white tracking-wide">NST SDC</div>
-                  <div className="text-xs text-white/45 font-sans">Software Development Club • Newton School of Technology</div>
+                  <div className="font-heading text-2xl text-white tracking-wide">NST SDC X REY</div>
+                  <div className="text-xs text-white/55 font-sans mt-0.5">Software Development Club • Respawn Each Year (REY) • Newton School of Technology</div>
                 </div>
               </div>
 

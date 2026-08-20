@@ -21,16 +21,16 @@ const scheduleSteps = [
   },
   {
     time: 'T + 00:00', blockType: 'motion',
-    title: 'Problem Statement Release',
+    title: 'Theme Release',
     subtitle: 'First-come, first-served allocation begins',
-    desc: 'All 10\u201315 problem statements go live simultaneously. Teams claim one statement through the portal. Once a statement runs out of seats, it is locked.',
+    desc: 'All 10–15 themes go live simultaneously. Teams claim one theme through the portal. Once a theme runs out of seats, it is locked.',
     icon: Flag, colorHex: '#00FFB3', textColor: '#0A0E1A'
   },
   {
     time: 'T + 00:00 → T + 04:00', blockType: 'operators',
     title: 'Round 1 — Build & Submit',
     subtitle: '4 hours to design, program, test and submit',
-    desc: 'Teams work on their claimed problem statement in Scratch. Mentors available for technical guidance (not solutions). Submit before the timer ends — late submissions face score deductions.',
+    desc: 'Teams work on their claimed theme in Scratch. Mentors available for technical guidance (not solutions). Submit before the timer ends — late submissions face score deductions.',
     icon: Code, colorHex: '#00FFB3', textColor: '#0A0E1A'
   },
   {
@@ -43,15 +43,15 @@ const scheduleSteps = [
   {
     time: 'After Round 1 Judging', blockType: 'looks',
     title: 'Finalist Selection',
-    subtitle: 'Top 1 team per problem statement advances',
-    desc: 'Judges score all submissions and select the highest-scoring team from each problem statement. Finalists are announced and Round 2 schedule is confirmed.',
+    subtitle: 'Top 1 team per theme advances',
+    desc: 'Judges score all submissions and select the highest-scoring team from each theme. Finalists are announced and Round 2 schedule is confirmed.',
     icon: Trophy, colorHex: '#FF5CE8', textColor: '#fff'
   },
   {
     time: 'Final Round — 2 Hours', blockType: 'events',
     title: 'Round 2 — Present, Explain & Defend',
     subtitle: 'PPT + live demo + judge Q&A',
-    desc: 'Finalists present their game (problem statement → concept → implementation → teamwork → live demo). Every team member must be able to explain their portion. Judges ask technical and design questions.',
+    desc: 'Finalists present their game (theme → concept → implementation → teamwork → live demo). Every team member must be able to explain their portion. Judges ask technical and design questions.',
     icon: Radio, colorHex: '#FFE500', textColor: '#0A0E1A'
   },
   {

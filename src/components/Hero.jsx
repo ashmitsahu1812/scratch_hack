@@ -85,7 +85,7 @@ export default function Hero() {
         <div className="flex justify-center mb-6 sm:mb-8">
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 sm:px-5 sm:py-2 bg-[#FFE500] text-[#070B14] font-sans font-bold text-xs sm:text-sm rounded-full border-2 border-[#CCB800] shadow-[3px_3px_0_#CCB800]">
             <Flag className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-[#070B14]" />
-            <span>HOSTED BY NST SDC</span>
+            <span>HOSTED BY NST SDC X REY</span>
           </div>
         </div>
 
@@ -113,7 +113,7 @@ export default function Hero() {
           </div>
 
           <p className="text-sm sm:text-lg text-white/80 max-w-2xl mx-auto font-sans leading-relaxed mb-8 px-2">
-            Build a <span className="text-[#00FFB3] font-semibold">playable Scratch game</span> from a problem statement in{' '}
+            Build a <span className="text-[#00FFB3] font-semibold">playable Scratch game</span> around a surprise theme in{' '}
             <span className="text-[#FFE500] font-semibold">4 hours</span>, then present &amp; defend your work in a{' '}
             <span className="text-[#FF5CE8] font-semibold">2-hour final round</span>.
           </p>
@@ -134,7 +134,7 @@ export default function Hero() {
               className="scratch-btn scratch-btn-operators text-lg sm:text-xl py-3.5 sm:py-4 px-8 sm:px-10 w-full sm:w-auto text-center"
             >
               <Sparkles className="w-5 h-5" />
-              Explore Tracks
+              Explore Themes
             </a>
           </div>
         </div>
@@ -176,7 +176,7 @@ export default function Hero() {
             { icon: Clock,   color: '#00FFB3', value: '4 Hours',     sub: 'Round 1 — Build & Submit' },
             { icon: Clock,   color: '#FF5CE8', value: '2 Hours',     sub: 'Round 2 — Present & Defend' },
             { icon: Users,   color: '#FFE500', value: '3 Members',   sub: 'Per Team' },
-            { icon: Zap,     color: '#A78BFF', value: '10–15',       sub: 'Problem Statements' },
+            { icon: Zap,     color: '#A78BFF', value: '10–15',       sub: 'Live Themes' },
           ].map(({ icon: Icon, color, value, sub }) => (
             <div key={sub} className="bg-[#0E1526]/80 border border-white/10 p-3 sm:p-4 rounded-xl backdrop-blur-sm hover:bg-[#0E1526] transition-all flex flex-col items-center justify-center shadow-sm">
               <div className="flex justify-center mb-1.5 sm:mb-2">

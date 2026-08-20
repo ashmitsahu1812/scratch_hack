@@ -10,7 +10,7 @@ export default function LoadingScreen({ onComplete }) {
 
   const steps = [
     'Initializing Scratch block workspace...',
-    'Loading NST SDC competition engine...',
+    'Loading NST SDC X REY competition engine...',
     'Compiling “Imagine. Create. Conquer.” modules...',
     'Snapping all scripts into place...',
     'READY! Launching ScratchStorm \'26...'
@@ -109,7 +109,7 @@ export default function LoadingScreen({ onComplete }) {
           className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#FFE500]/15 border border-[#FFE500]/40 text-[#FFE500] text-xs font-sans font-bold uppercase tracking-wider mb-4"
         >
           <span className="w-2 h-2 rounded-full bg-[#00FFB3] animate-ping" />
-          <span>Hosted by NST SDC</span>
+          <span>Hosted by NST SDC X REY</span>
         </motion.div>
 
         {/* Title */}

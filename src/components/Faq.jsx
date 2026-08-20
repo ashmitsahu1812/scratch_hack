@@ -7,19 +7,19 @@ import { GeoBox, GeoStar, GeoCylinder, GeoDiamond } from './GeoShapes';
 const faqs = [
   {
     q: "Who can participate?",
-    a: "Any student! Teams compete with 3 members. Solo (1 member) and Duo (2 members) registrations are fully allowed — on the event day, NST SDC organisers will club solo and duo participants with each other to form a complete 3-member team before hacking begins."
+    a: "Any student! Teams compete with 3 members. Solo (1 member) and Duo (2 members) registrations are fully allowed — on the event day, NST SDC X REY organisers will club solo and duo participants with each other to form a complete 3-member team before hacking begins."
   },
   {
     q: "What platform must I use?",
     a: "All games must be built using MIT Scratch 3.0 — either the online editor at scratch.mit.edu or the offline desktop editor. Scratch must be the primary development platform; the final gameplay logic must be created during the hackathon window."
   },
   {
-    q: "How does the problem statement system work?",
-    a: "At the start of Round 1, the organiser releases 10–15 problem statements. Teams claim one statement on a first-come, first-served basis through the portal. Each statement has a fixed seat capacity (total teams ÷ number of statements). Once full, a statement is locked and unavailable."
+    q: "How does the theme system work?",
+    a: "At the start of Round 1, the organiser releases 10–15 themes. Teams claim one theme on a first-come, first-served basis through the portal. Each theme has a fixed seat capacity (total teams ÷ number of themes). Once full, a theme is locked and unavailable."
   },
   {
-    q: "Can I switch my problem statement after claiming it?",
-    a: "No. Once you claim a problem statement and the selection window closes, you cannot change it — except in an organiser-approved technical or operational failure. Choose carefully!"
+    q: "Can I switch my theme after claiming it?",
+    a: "No. Once you claim a theme and the selection window closes, you cannot change it — except in an organiser-approved technical or operational failure. Choose carefully!"
   },
   {
     q: "Can I use AI tools like ChatGPT?",
@@ -31,11 +31,11 @@ const faqs = [
   },
   {
     q: "How is the final winner decided?",
-    a: "Final Score = (Round 1 Score × 40%) + (Round 2 Score × 60%). The top-ranked team from each problem statement advances to Round 2. This model ensures the winner can both build a working game and explain and defend their solution."
+    a: "Final Score = (Round 1 Score × 40%) + (Round 2 Score × 60%). The top-ranked team from each theme advances to Round 2. This model ensures the winner can both build a working game and explain and defend their solution."
   },
   {
     q: "What happens in Round 2?",
-    a: "Round 2 is 2 hours long. Finalists prepare a presentation covering: the problem statement, their game concept, gameplay, implementation, key technical decisions, teamwork breakdown and a live demo. Judges ask technical and design questions. Every team member should be able to explain their portion of the project."
+    a: "Round 2 is 2 hours long. Finalists prepare a presentation covering: the theme, their game concept, gameplay, implementation, key technical decisions, teamwork breakdown and a live demo. Judges ask technical and design questions. Every team member should be able to explain their portion of the project."
   },
   {
     q: "What are the penalties for late submission?",
@@ -43,7 +43,7 @@ const faqs = [
   },
   {
     q: "Do all participants get a certificate?",
-    a: "Yes! Every team member who submits a valid, playable Scratch project by the deadline receives a digital certificate of participation from NST SDC, regardless of final placement."
+    a: "Yes! Every team member who submits a valid, playable Scratch project by the deadline receives a digital certificate of participation from NST SDC X REY, regardless of final placement."
   },
 ];
 
@@ -86,7 +86,7 @@ export default function Faq() {
           <span className="scratch-tag scratch-tag-sensing mb-3">sensing &amp; control queries</span>
           <h2 className="font-heading text-5xl sm:text-7xl text-white mt-2">Frequently Asked Questions</h2>
           <p className="text-white/55 mt-3 text-sm sm:text-base font-sans">
-            Everything you need to know about rules, judging, problem statements and submission.
+            Everything you need to know about rules, judging, themes and submission.
           </p>
         </div>
 

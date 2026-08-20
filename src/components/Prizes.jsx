@@ -34,16 +34,6 @@ const mysteryTiers = [
     badgeColor: '#FF5CE8',
     badgeBorder: 'rgba(255,92,232,0.4)',
     hint: 'Cash Prize + Bronze Award + Merch Kit'
-  },
-  {
-    rank: 'Special Category',
-    title: 'Judge\'s Choice',
-    borderColor: '#A78BFF',
-    shadowColor: 'rgba(167,139,255,0.25)',
-    badgeBg: 'rgba(167,139,255,0.15)',
-    badgeColor: '#A78BFF',
-    badgeBorder: 'rgba(167,139,255,0.4)',
-    hint: 'Special Innovation Award + Community Spotlight'
   }
 ];
 
@@ -83,7 +73,7 @@ export default function Prizes() {
           </div>
           <h2 className="font-heading text-5xl sm:text-7xl text-white mt-2">Prizes &amp; Perks</h2>
           <p className="text-white/60 mt-3 text-sm sm:text-base font-sans">
-            The grand prize pool, sponsor bounty tracks, and special awards are being finalized by NST SDC.
+            The grand prize pool, winner trophies, and podium honours are being finalized by NST SDC X REY.
           </p>
         </div>
 
@@ -114,7 +104,7 @@ export default function Prizes() {
         </div>
 
         {/* Mystery Prize Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {mysteryTiers.map((tier, idx) => (
             <motion.div
               key={idx}
@@ -182,7 +172,7 @@ export default function Prizes() {
             <div>
               <h4 className="font-heading text-2xl text-white">Digital Certificate for All Participants</h4>
               <p className="text-white/60 text-xs sm:text-sm font-sans">
-                Every member who submits a valid Scratch project receives a verified digital certificate of participation from NST SDC.
+                Every member who submits a valid Scratch project receives a verified digital certificate of participation from NST SDC X REY.
               </p>
             </div>
           </div>
