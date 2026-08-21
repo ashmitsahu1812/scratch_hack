@@ -183,7 +183,6 @@ export default function Tracks() {
 
                   <div className="mt-5 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-code text-white/35">
                     <span>when [theme] picked</span>
-                    <span style={{ color: theme.color }}>preview</span>
                   </div>
                 </div>
               );

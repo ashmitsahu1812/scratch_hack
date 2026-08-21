@@ -6,7 +6,7 @@ import { GeoBox, GeoStar, GeoCylinder, GeoDiamond } from './GeoShapes';
 
 const round1Rubric = [
   { criterion: 'Basic Game Working',          weight: '40%', color: '#FF6B6B', desc: 'Core gameplay, controls, win/lose state, required mechanics, stability' },
-  { criterion: 'Sprites & Visual Implementation', weight: '25%', color: '#FF5CE8', desc: 'Appropriate sprites, backgrounds, readability, animation and use of Scratch assets' },
+  { criterion: 'Sprites & Visual Implementation', weight: '25%', color: '#FF5CE8', desc: 'Appropriate sprites, backgrounds, sound, readability, animation and use of Scratch assets' },
   { criterion: 'Creativity & Game Design',    weight: '35%', color: '#FFE500', desc: 'Originality, engagement, clever mechanics, challenge balance and interpretation of the statement' },
 ];
 

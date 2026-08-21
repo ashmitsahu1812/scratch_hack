@@ -34,10 +34,6 @@ const faqs = [
     a: "Round 2 is 2 hours long. Finalists prepare a presentation covering: the theme, their game concept, gameplay, implementation, key technical decisions, teamwork breakdown and a live demo. Judges ask technical and design questions. Every team member should be able to explain their portion of the project."
   },
   {
-    q: "What are the penalties for late submission?",
-    a: "Late submissions receive a score deduction — recommended up to 5 points per minute late, capped at 15 minutes. After 15 minutes past the deadline, the submission is disqualified. The portal records submission timestamps automatically."
-  },
-  {
     q: "Do all participants get a certificate?",
     a: "Yes! Every team member who submits a valid, playable Scratch project by the deadline receives a digital certificate of participation from NST SDC X REY, regardless of final placement."
   },
