@@ -15,7 +15,7 @@ const faqs = [
   },
   {
     q: "How does the theme system work?",
-    a: "At the start of Round 1, the organiser releases 10–15 themes. Teams claim one theme on a first-come, first-served basis through the portal. Each theme has a fixed seat capacity (total teams ÷ number of themes). Once full, a theme is locked and unavailable."
+    a: "At the start of Round 1, the organiser releases several themes. Teams claim one theme on a first-come, first-served basis through the portal. Each theme has a fixed seat capacity (total teams ÷ number of themes). Once full, a theme is locked and unavailable."
   },
   {
     q: "Can I switch my theme after claiming it?",
@@ -28,10 +28,6 @@ const faqs = [
   {
     q: "Can I use pre-built Scratch projects or code from another team?",
     a: "No. All code blocks, sprites and animations must be created during the 4-hour hackathon window. Importing a complete pre-built game, modifying an existing game to pass it off as original, or using another team's code/assets without permission results in immediate disqualification."
-  },
-  {
-    q: "How is the final winner decided?",
-    a: "Final Score = (Round 1 Score × 40%) + (Round 2 Score × 60%). The top-ranked team from each theme advances to Round 2. This model ensures the winner can both build a working game and explain and defend their solution."
   },
   {
     q: "What happens in Round 2?",

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Lock, Sparkles, Award, Gift, Clock, ShieldCheck } from 'lucide-react';
+import { Lock, Award, Clock, ShieldCheck } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { scratchAudio } from '../lib/soundEffects';
 import { GeoBox, GeoStar, GeoCylinder, GeoDiamond } from './GeoShapes';
@@ -95,9 +95,6 @@ export default function Prizes() {
             <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
               <span className="scratch-tag scratch-tag-control">
                 <Clock className="w-3.5 h-3.5" /> REVEAL COMING SOON
-              </span>
-              <span className="scratch-tag scratch-tag-looks">
-                <Gift className="w-3.5 h-3.5" /> MYSTERY SWAG &amp; CASH POOL
               </span>
             </div>
           </div>

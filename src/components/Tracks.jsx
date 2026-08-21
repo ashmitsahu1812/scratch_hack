@@ -91,7 +91,7 @@ export default function Tracks() {
           <span className="scratch-tag scratch-tag-events mb-3">first-come, first-served</span>
           <h2 className="font-heading text-5xl sm:text-7xl text-white mt-2">THEMES</h2>
           <p className="text-white/55 mt-3 text-sm sm:text-base font-sans">
-            At the start of Round 1, <strong className="text-white">10–15 themes</strong> are released live.
+            At the start of Round 1, <strong className="text-white">several themes will</strong> be released live.
             Each team claims <strong className="text-white">one theme</strong> — once seats fill up, it's locked.
             The strongest team from each theme advances to Round 2.
           </p>
@@ -100,7 +100,7 @@ export default function Tracks() {
         {/* How it works */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-12">
           {[
-            { step: '01', color: '#FFE500', title: 'Themes Released', desc: 'Organiser publishes 10–15 game themes at the start of Round 1. Each has a fixed seat capacity.' },
+            { step: '01', color: '#FFE500', title: 'Themes Released', desc: 'Organiser publishes several game themes at the start of Round 1. Each has a fixed seat capacity.' },
             { step: '02', color: '#FF5CE8', title: 'Claim Your Theme', desc: 'First-come, first-served. Once a theme reaches capacity it is locked — you cannot switch afterwards.' },
             { step: '03', color: '#00FFB3', title: 'Build & Submit', desc: 'You have 4 hours to design, program, test and submit a playable Scratch game matching the theme.' },
           ].map(({ step, color, title, desc }) => (
