@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Flag, Play, Sparkles, Trophy, Users, Clock, Zap } from 'lucide-react';
+import { Flag, Play, Sparkles, Trophy, Users, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { scratchAudio } from '../lib/soundEffects';
 import { GeoBox, GeoCylinder, GeoStar, GeoDiamond } from './GeoShapes';
@@ -171,12 +171,11 @@ export default function Hero() {
         </div>
 
         {/* Stats Row */}
-        <div className="mt-8 sm:mt-12 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 text-center">
+        <div className="mt-8 sm:mt-12 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 text-center max-w-4xl mx-auto">
           {[
             { icon: Clock,   color: '#00FFB3', value: '4 Hours',     sub: 'Round 1 — Build & Submit' },
             { icon: Clock,   color: '#FF5CE8', value: '2 Hours',     sub: 'Round 2 — Present & Defend' },
             { icon: Users,   color: '#FFE500', value: '3 Members',   sub: 'Per Team' },
-            { icon: Zap,     color: '#A78BFF', value: '10–15',       sub: 'Live Themes' },
           ].map(({ icon: Icon, color, value, sub }) => (
             <div key={sub} className="bg-[#0E1526]/80 border border-white/10 p-3 sm:p-4 rounded-xl backdrop-blur-sm hover:bg-[#0E1526] transition-all flex flex-col items-center justify-center shadow-sm">
               <div className="flex justify-center mb-1.5 sm:mb-2">
