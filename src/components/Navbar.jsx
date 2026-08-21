@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Flag, Octagon, Volume2, VolumeX, Menu, X, Code2, Sparkles } from 'lucide-react';
+import { Flag, Octagon, Volume2, VolumeX, Menu, X, Code2, Sparkles, Lock } from 'lucide-react';
 import { scratchAudio } from '../lib/soundEffects';
 
 export default function Navbar() {
@@ -18,55 +18,66 @@ export default function Navbar() {
     setFlagClicked(true);
     setTimeout(() => setFlagClicked(false), 600);
     const formSection = document.getElementById('register');
-    if (formSection) formSection.scrollIntoView({ behavior: 'smooth' });
+    if (formSection) {
+      formSection.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const handleStop = () => {
-    scratchAudio.playError();
+    scratchAudio.playStop();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <nav className="sticky top-0 z-50 bg-[#070B14]/90 backdrop-blur-md border-b border-white/10 shadow-lg">
+    <nav className="sticky top-0 z-50 bg-[#070B14]/90 backdrop-blur-md border-b border-white/10 select-none">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-16 sm:h-20">
 
-          {/* Logo */}
-          <div className="flex items-center gap-3 sm:gap-4">
-            <a href="#" className="flex items-center gap-2.5 group">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-md bg-[#FFE500] flex items-center justify-center border-2 border-white/20 shadow-md group-hover:scale-105 transition-transform">
-                <Code2 className="w-5 h-5 text-[#070B14]" />
+          {/* Left: Scratch-style branding + Flag controls */}
+          <div className="flex items-center gap-3 sm:gap-6">
+            
+            {/* Logo */}
+            <a href="#overview" className="flex items-center gap-2 group cursor-pointer" title="Go to top">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-md bg-[#FFE500] border-2 border-[#CCB800] flex items-center justify-center font-heading text-lg sm:text-2xl text-[#070B14] shadow-[2px_2px_0_#CCB800] group-hover:scale-105 transition-transform">
+                S
               </div>
-              <div>
-                <div className="flex items-center gap-1 font-heading text-xl sm:text-2xl text-white tracking-wider">
-                  Scratch<span className="text-[#FFE500]">Storm</span>
-                  <span className="text-[10px] sm:text-xs px-1.5 py-0.5 rounded bg-white/10 text-white/70 font-sans font-semibold tracking-normal border border-white/20">
-                    '26
-                  </span>
-                </div>
-                <div className="text-[9px] sm:text-[10px] text-white/40 font-sans leading-none">Hosted by <span className="text-white/70 font-semibold">NST SDC X REY</span></div>
+              <div className="flex flex-col">
+                <span className="font-heading text-xl sm:text-2xl text-white tracking-wider leading-none group-hover:text-[#FFE500] transition-colors">
+                  SCRATCH STORM '26
+                </span>
+                <span className="text-[10px] font-sans font-medium text-white/50 tracking-wider">
+                  BY NST SDC X REY
+                </span>
               </div>
             </a>
 
-            {/* Flag & Stop Controls */}
-            <div className="hidden sm:flex items-center gap-1.5 bg-white/5 p-1 rounded-lg border border-white/10">
+            {/* Scratch Controls */}
+            <div className="hidden sm:flex items-center gap-1.5 bg-black/40 p-1.5 rounded-lg border border-white/10">
               <button
                 onClick={handleGreenFlag}
-                title="Go to Register"
-                className={`p-1.5 rounded-md bg-[#00FFB3]/20 hover:bg-[#00FFB3]/30 text-[#00FFB3] border border-[#00FFB3]/40 transition-all active:scale-95 ${flagClicked ? 'animate-bounce scale-110' : ''}`}
+                title="Go to Registration Info"
+                className={`p-1.5 rounded-md transition-all ${
+                  flagClicked
+                    ? 'bg-[#00FFB3] text-[#070B14] scale-95'
+                    : 'bg-white/5 hover:bg-[#00FFB3]/20 text-[#00FFB3]'
+                }`}
               >
-                <Flag className="w-4 h-4 fill-[#00FFB3]" />
+                <Flag className="w-4 h-4 fill-current" />
               </button>
+
               <button
                 onClick={handleStop}
-                title="Scroll to Top"
-                className="p-1.5 rounded-md bg-[#FF6B6B]/20 hover:bg-[#FF6B6B]/30 text-[#FF6B6B] border border-[#FF6B6B]/40 transition-all active:scale-95"
+                title="Reset scroll"
+                className="p-1.5 rounded-md bg-white/5 hover:bg-[#FF6B6B]/20 text-[#FF6B6B] transition-all"
               >
-                <Octagon className="w-4 h-4 fill-[#FF6B6B]" />
+                <Octagon className="w-4 h-4 fill-current" />
               </button>
+
+              <div className="w-px h-4 bg-white/10 mx-0.5" />
+
               <button
                 onClick={handleToggleSound}
-                title={soundEnabled ? 'Mute' : 'Unmute'}
+                title={soundEnabled ? 'Mute sound effects' : 'Enable sound effects'}
                 className="p-1.5 rounded-md bg-white/5 hover:bg-white/10 border border-white/10 transition-all"
               >
                 {soundEnabled
@@ -79,9 +90,7 @@ export default function Navbar() {
           {/* Desktop Nav Links */}
           <div className="hidden md:flex items-center gap-6 font-sans font-semibold text-sm">
             <a href="#overview" className="text-white/70 hover:text-white transition-colors">Overview</a>
-            <a href="#register" className="text-[#FFE500] hover:text-white transition-colors flex items-center gap-1">
-              <Sparkles className="w-3.5 h-3.5" /> Register
-            </a>
+            <a href="#register" className="text-white/70 hover:text-white transition-colors">Registration</a>
             <a href="#tracks"   className="text-white/70 hover:text-white transition-colors">Themes</a>
             <a href="#schedule" className="text-white/70 hover:text-white transition-colors">Schedule</a>
             <a href="#judging"  className="text-white/70 hover:text-white transition-colors">Judging</a>
@@ -94,10 +103,10 @@ export default function Navbar() {
             <a
               href="#register"
               onClick={() => scratchAudio.playSnap()}
-              className="hidden md:inline-flex items-center gap-1.5 font-heading text-lg tracking-wider px-4 py-1.5 rounded-sm bg-[#FFE500] hover:bg-[#FFE500]/90 text-[#070B14] border-2 border-[#CCB800] shadow-[2px_2px_0_#CCB800] active:translate-x-0.5 active:translate-y-0.5 transition-all"
+              className="hidden md:inline-flex items-center gap-1.5 font-heading text-sm tracking-wider px-3.5 py-1.5 rounded-sm bg-[#FF6B6B]/20 hover:bg-[#FF6B6B]/30 text-[#FF6B6B] border border-[#FF6B6B]/40 shadow-sm transition-all"
             >
-              <Sparkles className="w-4 h-4" />
-              <span>Join Hackathon</span>
+              <Lock className="w-3.5 h-3.5" />
+              <span>Registrations Closed</span>
             </a>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -127,7 +136,7 @@ export default function Navbar() {
           </div>
           {[
             { href: '#overview', label: 'Overview' },
-            { href: '#register', label: 'Register Now' },
+            { href: '#register', label: 'Registration (Closed)' },
             { href: '#tracks',   label: 'Themes' },
             { href: '#schedule', label: 'Schedule' },
             { href: '#judging',  label: 'Judging Criteria' },

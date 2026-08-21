@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Flag, Play, Sparkles, Trophy, Users, Clock } from 'lucide-react';
+import { Flag, Play, Sparkles, Trophy, Users, Clock, Lock } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { scratchAudio } from '../lib/soundEffects';
 import { GeoBox, GeoCylinder, GeoStar, GeoDiamond } from './GeoShapes';
@@ -87,10 +87,14 @@ export default function Hero() {
       >
 
         {/* Announce badge */}
-        <div className="flex justify-center mb-6 sm:mb-8">
+        <div className="flex flex-wrap items-center justify-center gap-2 mb-6 sm:mb-8">
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 sm:px-5 sm:py-2 bg-[#FFE500] text-[#070B14] font-sans font-bold text-xs sm:text-sm rounded-full border-2 border-[#CCB800] shadow-[3px_3px_0_#CCB800]">
             <Flag className="w-3.5 h-3.5 sm:w-4 sm:h-4 fill-[#070B14]" />
             <span>HOSTED BY NST SDC X REY</span>
+          </div>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 bg-[#FF6B6B]/20 text-[#FF6B6B] font-sans font-bold text-xs sm:text-sm rounded-full border border-[#FF6B6B]/40 shadow-sm">
+            <Lock className="w-3.5 h-3.5" />
+            <span>REGISTRATIONS CLOSED</span>
           </div>
         </div>
 
@@ -128,17 +132,25 @@ export default function Hero() {
             <a
               href="#register"
               onClick={() => scratchAudio.playSnap()}
-              className="scratch-btn scratch-btn-events text-lg sm:text-xl py-3.5 sm:py-4 px-8 sm:px-10 w-full sm:w-auto text-center"
+              className="scratch-btn text-base sm:text-lg py-3 sm:py-3.5 px-6 sm:px-8 w-full sm:w-auto text-center bg-[#FF6B6B]/20 text-[#FF6B6B] border-2 border-[#FF6B6B]/60 shadow-[3px_3px_0_#992B2B] hover:bg-[#FF6B6B]/30"
             >
-              <Play className="w-5 h-5 fill-current" />
-              Snap Team Into Registration
+              <Lock className="w-4 h-4" />
+              Registrations Closed
+            </a>
+            <a
+              href="#schedule"
+              onClick={() => scratchAudio.playSnap()}
+              className="scratch-btn scratch-btn-motion text-base sm:text-lg py-3 sm:py-3.5 px-6 sm:px-8 w-full sm:w-auto text-center"
+            >
+              <Clock className="w-4 h-4" />
+              Event Schedule
             </a>
             <a
               href="#tracks"
               onClick={() => scratchAudio.playSnap()}
-              className="scratch-btn scratch-btn-operators text-lg sm:text-xl py-3.5 sm:py-4 px-8 sm:px-10 w-full sm:w-auto text-center"
+              className="scratch-btn scratch-btn-operators text-base sm:text-lg py-3 sm:py-3.5 px-6 sm:px-8 w-full sm:w-auto text-center"
             >
-              <Sparkles className="w-5 h-5" />
+              <Sparkles className="w-4 h-4" />
               Explore Themes
             </a>
           </div>
