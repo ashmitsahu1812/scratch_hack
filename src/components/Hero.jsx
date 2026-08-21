@@ -7,24 +7,29 @@ import { GeoBox, GeoCylinder, GeoStar, GeoDiamond } from './GeoShapes';
 /* ── Target Saturday 10:00 AM IST Countdown ── */
 function getTargetSaturdayIST() {
   const now = new Date();
+  // Shift by IST offset (+5:30) so we can read IST calendar date and time via UTC methods
   const istOffsetMs = 5.5 * 60 * 60 * 1000;
-  const nowUtc = now.getTime() + (now.getTimezoneOffset() * 60000);
-  const nowIST = new Date(nowUtc + istOffsetMs);
+  const istTime = new Date(now.getTime() + istOffsetMs);
 
-  const dayOfWeek = nowIST.getDay(); // 0 = Sun, ..., 6 = Sat
-  let daysUntilSaturday = (6 - dayOfWeek + 7) % 7;
+  const istDay = istTime.getUTCDay(); // 0 = Sun, ..., 5 = Fri, 6 = Sat
+  const istHours = istTime.getUTCHours();
+  let daysUntilSaturday = (6 - istDay + 7) % 7;
 
-  const targetIST = new Date(nowIST);
-  targetIST.setDate(nowIST.getDate() + daysUntilSaturday);
-  targetIST.setHours(10, 0, 0, 0);
-
-  // If today is Saturday and past 10:00 AM IST, jump to next Saturday
-  if (daysUntilSaturday === 0 && nowIST.getTime() >= targetIST.getTime()) {
-    targetIST.setDate(targetIST.getDate() + 7);
+  // If today is Saturday and it is already 10:00 AM IST or later, target the following Saturday
+  if (daysUntilSaturday === 0 && istHours >= 10) {
+    daysUntilSaturday = 7;
   }
 
-  // Convert targetIST back to real epoch timestamp
-  return targetIST.getTime() - istOffsetMs;
+  // Saturday 10:00 AM IST equals Saturday 04:30:00 UTC
+  return Date.UTC(
+    istTime.getUTCFullYear(),
+    istTime.getUTCMonth(),
+    istTime.getUTCDate() + daysUntilSaturday,
+    4,
+    30,
+    0,
+    0
+  );
 }
 
 function getTimeRemaining() {
